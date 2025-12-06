@@ -1,0 +1,9 @@
+export { Navbar } from './Navbar';
+export { Hero } from './Hero';
+export { About } from './About';
+export { Projects } from './Projects';
+export { TechStack } from './TechStack';
+export { Contact } from './Contact';
+export { Footer } from './Footer';
+export { Cursor } from './Cursor';
+export { ParticleBackground } from './ParticleBackground';
