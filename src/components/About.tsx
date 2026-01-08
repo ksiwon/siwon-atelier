@@ -212,7 +212,7 @@ const interests = [
 ];
 
 const stats = [
-  { number: '19+', label: 'Projects Delivered', icon: <Rocket size={28} />, color: '#6366f1' },
+  { number: '20+', label: 'Projects Delivered', icon: <Rocket size={28} />, color: '#6366f1' },
   { number: '4+', label: 'Research Projects', icon: <Brain size={28} />, color: '#8b5cf6' },
   { number: '2', label: 'Leadership Roles', icon: <GraduationCap size={28} />, color: '#06b6d4' },
 ];

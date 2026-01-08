@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence, useMotionValue, useTransform } from 'framer-motion';
-import { ExternalLink, Sparkles, Cpu, Users, Briefcase } from 'lucide-react';
+import { ExternalLink, Sparkles, Cpu, Users, Briefcase, Star, Zap } from 'lucide-react';
 import { projects, ProjectCategory } from '../data/projects';
 
 const ProjectsSection = styled.section`
@@ -222,17 +222,20 @@ const FeaturedBadge = styled.div`
   border: 1px solid ${({ theme }) => theme.colors.primary}40;
 `;
 
-const categories: { id: ProjectCategory | 'All'; label: string; icon: JSX.Element }[] = [
-  { id: 'All', label: 'All Projects', icon: <Sparkles size={16} /> },
+const categories: { id: ProjectCategory | 'All' | 'Stars'; label: string; icon: JSX.Element }[] = [
+  { id: 'Stars', label: 'Stars', icon: <Star size={16} /> },
   { id: 'AEL', label: 'AI Experience Lab', icon: <Cpu size={16} /> },
+  { id: 'SPARCS', label: 'SPARCS', icon: <Zap size={16} /> },
+  { id: 'FreakIT', label: 'FreakIT', icon: <Users size={16} /> },
   { id: 'Own', label: 'Own Projects', icon: <Briefcase size={16} /> },
-  { id: 'Team', label: 'Team Projects', icon: <Users size={16} /> },
+  { id: 'All', label: 'All Projects', icon: <Sparkles size={16} /> },
 ];
 
 const categoryLabels: Record<ProjectCategory, string> = {
   'AEL': 'AEL Project',
   'Own': 'Own Project',
-  'Team': 'Team Project'
+  'FreakIT': 'FreakIT',
+  'SPARCS': 'SPARCS'
 };
 
 const containerVariants = {
@@ -318,10 +321,12 @@ const ProjectCard = ({ project, variants }: { project: typeof projects[0], varia
 };
 
 export const Projects = () => {
-  const [activeCategory, setActiveCategory] = useState<ProjectCategory | 'All'>('All');
+  const [activeCategory, setActiveCategory] = useState<ProjectCategory | 'All' | 'Stars'>('Stars');
 
   const filteredProjects = activeCategory === 'All' 
     ? projects 
+    : activeCategory === 'Stars'
+    ? projects.filter(p => p.star === true)
     : projects.filter(p => p.category === activeCategory);
 
   return (

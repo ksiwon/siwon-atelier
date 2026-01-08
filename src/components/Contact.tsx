@@ -18,6 +18,10 @@ const pulseAnimation = keyframes`
 const ContactSection = styled.section`
   padding: ${({ theme }) => theme.spacing['5xl']} ${({ theme }) => theme.spacing.xl};
   position: relative;
+
+  @media (max-width: 480px) {
+    padding: ${({ theme }) => theme.spacing['3xl']} ${({ theme }) => theme.spacing.md};
+  }
 `;
 
 const Container = styled.div`
@@ -67,6 +71,11 @@ const ContactCard = styled(motion.div)`
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   padding: ${({ theme }) => theme.spacing['3xl']};
   text-align: center;
+
+  @media (max-width: 480px) {
+    padding: ${({ theme }) => theme.spacing.xl};
+    border-radius: ${({ theme }) => theme.borderRadius.lg};
+  }
 `;
 
 const LocationBadge = styled.div`
@@ -79,6 +88,12 @@ const LocationBadge = styled.div`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.textMuted};
   margin-bottom: ${({ theme }) => theme.spacing['2xl']};
+  white-space: nowrap;
+
+  @media (max-width: 480px) {
+    font-size: ${({ theme }) => theme.fontSizes.xs};
+    padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.md};
+  }
 `;
 
 const EmailsContainer = styled.div`
@@ -101,6 +116,8 @@ const EmailLink = styled(motion.a)`
   font-size: ${({ theme }) => theme.fontSizes.base};
   color: ${({ theme }) => theme.colors.text};
   transition: all ${({ theme }) => theme.transitions.normal};
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.primary};
@@ -110,6 +127,13 @@ const EmailLink = styled(motion.a)`
 
   svg {
     color: ${({ theme }) => theme.colors.primary};
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 480px) {
+    font-size: ${({ theme }) => theme.fontSizes.sm};
+    padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.lg};
+    gap: ${({ theme }) => theme.spacing.sm};
   }
 `;
 
@@ -125,6 +149,7 @@ const CTAButton = styled(motion.a)`
   font-weight: 600;
   color: white;
   transition: all ${({ theme }) => theme.transitions.normal};
+  white-space: nowrap;
 
   &:hover {
     transform: translateY(-2px);
@@ -132,15 +157,27 @@ const CTAButton = styled(motion.a)`
       animation: ${pulseAnimation} 2s infinite;
     `}
   }
+
+  @media (max-width: 480px) {
+    padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
+    font-size: ${({ theme }) => theme.fontSizes.sm};
+  }
 `;
 
 const SocialLinks = styled.div`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   gap: ${({ theme }) => theme.spacing.md};
   margin-top: ${({ theme }) => theme.spacing['2xl']};
   padding-top: ${({ theme }) => theme.spacing['2xl']};
   border-top: 1px solid ${({ theme }) => theme.colors.border};
+
+  @media (max-width: 480px) {
+    gap: ${({ theme }) => theme.spacing.sm};
+    margin-top: ${({ theme }) => theme.spacing.xl};
+    padding-top: ${({ theme }) => theme.spacing.xl};
+  }
 `;
 
 const SocialLink = styled(motion.a)`
@@ -153,10 +190,17 @@ const SocialLink = styled(motion.a)`
   color: ${({ theme }) => theme.colors.textMuted};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   transition: all ${({ theme }) => theme.transitions.fast};
+  white-space: nowrap;
 
   &:hover {
     color: ${({ theme }) => theme.colors.text};
     background: ${({ theme }) => theme.colors.surface};
+  }
+
+  @media (max-width: 480px) {
+    padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
+    font-size: ${({ theme }) => theme.fontSizes.xs};
+    gap: ${({ theme }) => theme.spacing.xs};
   }
 `;
 

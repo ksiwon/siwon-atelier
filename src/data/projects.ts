@@ -1,4 +1,4 @@
-export type ProjectCategory = 'AEL' | 'Own' | 'Team';
+export type ProjectCategory = 'AEL' | 'Own' | 'FreakIT' | 'SPARCS';
 
 export interface Project {
   id: string;
@@ -8,6 +8,7 @@ export interface Project {
   link: string;
   tech?: string[];
   featured?: boolean;
+  star?: boolean;
   color?: string;
 }
 
@@ -21,6 +22,7 @@ export const projects: Project[] = [
     link: 'https://osler.siwon.site',
     tech: ['AI', 'Healthcare', 'NLP'],
     featured: true,
+    star: true,
     color: '#6366f1'
   },
   {
@@ -31,6 +33,7 @@ export const projects: Project[] = [
     link: 'https://freud-jr.siwon.site',
     tech: ['AI', 'Mental Health', 'UX'],
     featured: true,
+    star: true,
     color: '#8b5cf6'
   },
   {
@@ -74,6 +77,15 @@ export const projects: Project[] = [
     color: '#22c55e'
   },
   {
+    id: 'pawmo',
+    title: 'Pawmo',
+    description: 'KAIST Graduation Checker',
+    category: 'Own',
+    link: 'https://pawmo.siwon.site',
+    tech: ['KAIST', 'Graduation', 'Checker'],
+    color: '#22c55e'
+  },
+  {
     id: 'stl',
     title: 'STL',
     description: 'AI-based Timetable Generator',
@@ -81,6 +93,7 @@ export const projects: Project[] = [
     link: 'https://stl.siwon.site',
     tech: ['AI', 'Optimization', 'KAIST'],
     featured: true,
+    star: true,
     color: '#3b82f6'
   },
   {
@@ -117,6 +130,7 @@ export const projects: Project[] = [
     category: 'Own',
     link: 'https://im-kbo-scouter.siwon.site',
     tech: ['Data', 'Sports', 'Analytics'],
+    star: true,
     color: '#ef4444'
   },
   {
@@ -156,12 +170,33 @@ export const projects: Project[] = [
     color: '#84cc16'
   },
 
-  // Team Projects
+  // SPARCS Projects
+  {
+    id: 'ara',
+    title: 'Ara',
+    description: 'KAIST Online Community',
+    category: 'SPARCS',
+    link: 'https://newara.sparcs.org',
+    tech: ['Community', 'KAIST', 'Web'],
+    star: true,
+    color: '#ff6b6b'
+  },
+  {
+    id: 'students',
+    title: 'Students',
+    description: 'KAIST Undergraduate Student Council Platform',
+    category: 'SPARCS',
+    link: 'https://students.sparcs.org',
+    tech: ['Community', 'KAIST', 'Web'],
+    color: '#4ecdc4'
+  },
+
+  // FreakIT Projects
   {
     id: 'dab4n',
     title: 'DAB4N',
     description: 'Digital Test Grading Platform',
-    category: 'Team',
+    category: 'FreakIT',
     link: 'https://dab4n.netlify.app',
     tech: ['Education', 'AI', 'Grading'],
     featured: true,
@@ -171,17 +206,18 @@ export const projects: Project[] = [
     id: 'socra',
     title: 'SOCRA',
     description: 'Creative Cognitive Capability Question Generator (w. Prof. Jae-Seung Jeong)',
-    category: 'Team',
+    category: 'FreakIT',
     link: 'https://socra.netlify.app',
     tech: ['AI', 'Education', 'Research'],
     featured: true,
+    star: true,
     color: '#10b981'
   },
   {
     id: 'dab4s',
     title: 'DAB4S',
     description: 'Academy Test Grading Platform',
-    category: 'Team',
+    category: 'FreakIT',
     link: 'https://dab4s.netlify.app',
     tech: ['Education', 'Academy', 'Grading'],
     color: '#f59e0b'
@@ -190,7 +226,7 @@ export const projects: Project[] = [
     id: 'd-maker',
     title: 'D-Maker',
     description: 'Test Question Auto-Generator & Editor',
-    category: 'Team',
+    category: 'FreakIT',
     link: 'https://dabanmaker.netlify.app',
     tech: ['AI', 'Education', 'Generator'],
     color: '#6366f1'
