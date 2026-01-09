@@ -1,6 +1,6 @@
 import styled, { keyframes } from 'styled-components';
 import { motion } from 'framer-motion';
-import { Sparkles, Code2, Palette, Database, Cloud, Gamepad2, Film, Box, Cpu, Layers } from 'lucide-react';
+import { Sparkles, Code2, Palette, Database, Cloud, Box, Cpu, Layers } from 'lucide-react';
 import { techStack } from '../data/projects';
 
 const scroll = keyframes`
@@ -201,18 +201,21 @@ const techIcons: Record<string, { icon: JSX.Element; color: string }> = {
   'TensorFlow': { icon: <Cpu size={20} />, color: '#ff6f00' },
   'PyTorch': { icon: <Cpu size={20} />, color: '#ee4c2c' },
   'Figma': { icon: <Palette size={20} />, color: '#f24e1e' },
-  'Framer': { icon: <Box size={20} />, color: '#0055ff' },
+
   'Node.js': { icon: <Code2 size={20} />, color: '#339933' },
-  'PostgreSQL': { icon: <Database size={20} />, color: '#4169e1' },
+
   'MongoDB': { icon: <Database size={20} />, color: '#47a248' },
   'AWS': { icon: <Cloud size={20} />, color: '#ff9900' },
   'Docker': { icon: <Box size={20} />, color: '#2496ed' },
   'Git': { icon: <Code2 size={20} />, color: '#f05032' },
-  'Three.js': { icon: <Box size={20} />, color: '#ffffff' },
-  'WebGL': { icon: <Box size={20} />, color: '#990000' },
-  'Unity': { icon: <Gamepad2 size={20} />, color: '#ffffff' },
+  'Javascript': { icon: <Code2 size={20} />, color: '#f7df1e' },
+  'Streamlit': { icon: <Code2 size={20} />, color: '#ff4b4b' },
+  'MySQL': { icon: <Database size={20} />, color: '#4479a1' },
+  'Render': { icon: <Cloud size={20} />, color: '#46e3b7' },
+  'Netlify': { icon: <Cloud size={20} />, color: '#00c7b7' },
   'Blender': { icon: <Box size={20} />, color: '#f5792a' },
-  'Adobe CC': { icon: <Film size={20} />, color: '#ff0000' },
+
+
 };
 
 const skillCategories = [
@@ -220,25 +223,25 @@ const skillCategories = [
     title: 'Frontend',
     icon: <Code2 size={22} />,
     color: '#61dafb',
-    skills: ['React', 'Next.js', 'TypeScript', 'Vue.js', 'Framer Motion', 'Three.js']
+    skills: ['React', 'Next.js', 'TypeScript', 'Javascript', 'Streamlit']
   },
   {
     title: 'Backend & AI',
     icon: <Cpu size={22} />,
     color: '#ff6f00',
-    skills: ['Python', 'FastAPI', 'Node.js', 'TensorFlow', 'PyTorch', 'LangChain']
+    skills: ['Python', 'FastAPI', 'Node.js', 'TensorFlow', 'PyTorch', 'MySQL']
   },
   {
     title: 'Design',
     icon: <Palette size={22} />,
     color: '#f24e1e',
-    skills: ['Figma', 'Framer', 'Adobe XD', 'Blender', 'After Effects', 'Prototyping']
+    skills: ['Figma', 'Adobe XD', 'Blender', 'After Effects', 'Prototyping']
   },
   {
     title: 'Infrastructure',
     icon: <Cloud size={22} />,
     color: '#ff9900',
-    skills: ['AWS', 'Docker', 'PostgreSQL', 'MongoDB', 'Git', 'CI/CD']
+    skills: ['AWS', 'Docker', 'MongoDB', 'Git', 'Render', 'Netlify']
   }
 ];
 

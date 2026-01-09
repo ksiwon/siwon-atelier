@@ -235,9 +235,10 @@ export const projects: Project[] = [
 
 export const techStack = [
   'React', 'TypeScript', 'Next.js', 'Python', 'FastAPI',
-  'TensorFlow', 'PyTorch', 'Figma', 'Framer', 'Node.js',
-  'PostgreSQL', 'MongoDB', 'AWS', 'Docker', 'Git',
-  'Three.js', 'WebGL', 'Unity', 'Blender', 'Adobe CC'
+  'TensorFlow', 'PyTorch', 'Figma', 'Node.js',
+  'MongoDB', 'AWS', 'Docker', 'Git',
+  'Javascript', 'Streamlit', 'MySQL', 'Render', 'Netlify',
+  'Blender'
 ];
 
 export const roles = [
@@ -247,7 +248,7 @@ export const roles = [
   { title: 'KAIST AI Experience Lab', icon: '🏫', glitch: true }
 ];
 
-export const aboutDescription = 'KAIST에서 디자인과 기술을 연결하는 다양한 프로젝트 진행. HCI, AI Design, Generative AI 서비스 기획/설계, Voice Interaction 연구.';
+export const aboutDescription = 'Leading various projects connecting design and technology at KAIST. Researching HCI, AI Design, Generative AI Service Planning/Design, and Voice Interaction.';
 
 export const contacts = {
   email1: 'pjo12346@kaist.ac.kr',

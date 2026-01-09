@@ -220,7 +220,7 @@ export const Contact = () => {
           </SectionTag>
           <SectionTitle>Let's Connect</SectionTitle>
           <SectionSubtitle>
-            프로젝트 협업, 연구 참여, 또는 단순한 대화도 환영합니다
+            Open to project collaborations, research participation, or just a casual chat.
           </SectionSubtitle>
         </SectionHeader>
 

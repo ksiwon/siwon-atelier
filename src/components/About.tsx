@@ -242,7 +242,7 @@ export const About = () => {
             transition={{ duration: 0.6 }}
           >
             <ProfileImage src="/profile-nobg.png" alt="Profile" />
-            <ProfileName>박정원 | KAIST 22<br/> (Jung Won Park)</ProfileName>
+            <ProfileName>박정원 | KAIST 22<br/> (JungWon Park)</ProfileName>
           </ProfileContainer>
 
           <TextContent
@@ -252,13 +252,13 @@ export const About = () => {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <AboutText>
-              안녕하세요! 저는 <Highlight>KAIST에서 ID와 CS</Highlight>를 
-              전공하며 기술과 디자인의 교차점에서 새로운 가치를 만들어가는 개발자이자 디자이너입니다.
+              Hello! I am a developer and designer majoring in <Highlight>Industrial Design and Computer Science at KAIST</Highlight>, 
+              creating new values at the intersection of technology and design.
             </AboutText>
             <AboutText>
-              <Highlight>AI Experience Lab</Highlight>에서 의료 AI 서비스를 연구하고,&nbsp;
-              <Highlight>SPARCS</Highlight>에서 실제 서비스를 개발하며, 학생회 활동을 통해 
-              커뮤니티에 기여하고 있습니다.
+              I research Medical AI services at <Highlight>AI Experience Lab</Highlight>,&nbsp;
+              develop real-world services at <Highlight>SPARCS</Highlight>, and contribute to the community through 
+              student council activities.
             </AboutText>
 
             <InterestsGrid

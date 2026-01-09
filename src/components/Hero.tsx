@@ -265,8 +265,8 @@ export const Hero = () => {
           </HeroTitle>
 
           <HeroSubtitle variants={itemVariants}>
-            UX를 연구하는 프론트엔드 개발자,<br />
-            AI와 인터랙션 디자인을 실험하는 디자이너.
+            Frontend Developer researching UX,<br />
+            Designer experimenting with AI and Interaction Design.
           </HeroSubtitle>
 
           <RolesGrid variants={containerVariants}>
