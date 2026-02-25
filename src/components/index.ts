@@ -1,6 +1,7 @@
 export { Navbar } from './Navbar';
 export { Hero } from './Hero';
 export { About } from './About';
+export { Awards } from './Awards';
 export { Projects } from './Projects';
 export { TechStack } from './TechStack';
 export { Contact } from './Contact';

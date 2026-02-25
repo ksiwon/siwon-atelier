@@ -4,7 +4,8 @@ import { GlobalStyles } from './styles/GlobalStyles';
 import { 
   Navbar, 
   Hero, 
-  About, 
+  About,
+  Awards,
   Projects, 
   TechStack, 
   Contact, 
@@ -23,6 +24,7 @@ function App() {
       <main>
         <Hero />
         <About />
+        <Awards />
         <Projects />
         <TechStack />
         <Contact />

@@ -191,6 +191,7 @@ const CloseButton = styled(motion.button)`
 
 const navItems = [
   { label: 'About', href: '#about' },
+  { label: 'Awards', href: '#awards' },
   { label: 'Projects', href: '#projects' },
   { label: 'Tech Stack', href: '#tech' },
   { label: 'Contact', href: '#contact' },
