@@ -270,8 +270,22 @@ const awards = [
     link: 'https://ifdesign.com/en/winner-ranking/project/conext/742790',
   },
   {
-    id: 'humantech-2021',
+    id: 'ipesk-2025',
     index: '02',
+    name: 'IPESK Next-Generation Engineer',
+    year: '2025',
+    org: 'Institute for Promotion of Engineering and Science of Korea (IPESK)',
+    project: 'Certificate of Excellence',
+    description:
+      "This badge is awarded by IPESK to outstanding undergraduate students from global research-centric universities selected as IPESK Next-Generation Engineers. It recognizes excellent academic performance in major courses along with a recommendation from the Dean.",
+    tags: ['Engineering', 'Science', 'IPESK'],
+    accentColor: '#e69138',
+    image: '/ipesk.png',
+    link: 'https://www.openbadge-global.com/api/v1.0/openBadge/v2/Wallet/Public/GetAssertionShare/N2hrY1RJTXpKWkZScU40UFdGM2ZPUT09',
+  },
+  {
+    id: 'humantech-2021',
+    index: '03',
     name: 'Samsung Humantech Paper Award 2021',
     year: '2021',
     org: 'Samsung Electronics',
