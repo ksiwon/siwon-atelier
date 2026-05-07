@@ -1,17 +1,18 @@
 import { ThemeProvider } from 'styled-components';
 import { theme } from './styles/theme';
 import { GlobalStyles } from './styles/GlobalStyles';
-import { 
-  Navbar, 
-  Hero, 
+import {
+  Navbar,
+  Hero,
   About,
   Awards,
-  Projects, 
-  TechStack, 
-  Contact, 
+  Publications,
+  Projects,
+  TechStack,
+  Contact,
   Footer,
   Cursor,
-  ParticleBackground
+  ParticleBackground,
 } from './components';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Hero />
         <About />
         <Awards />
+        <Publications />
         <Projects />
         <TechStack />
         <Contact />

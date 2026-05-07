@@ -1,309 +1,356 @@
-import styled, { keyframes, css } from 'styled-components';
+import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { ArrowDown, Sparkles } from 'lucide-react';
-import { roles, aboutDescription } from '../data/projects';
-
-const glitchAnimation = keyframes`
-  0%, 100% {
-    text-shadow: 
-      2px 0 #ff00ff,
-      -2px 0 #00ffff;
-    transform: translate(0);
-  }
-  20% {
-    text-shadow: 
-      -2px 0 #ff00ff,
-      2px 0 #00ffff;
-    transform: translate(-2px, 1px);
-  }
-  40% {
-    text-shadow: 
-      2px 0 #ff00ff,
-      -2px 0 #00ffff;
-    transform: translate(2px, -1px);
-  }
-  60% {
-    text-shadow: 
-      -1px 0 #ff00ff,
-      1px 0 #00ffff;
-    transform: translate(0);
-  }
-  80% {
-    text-shadow: 
-      1px 0 #ff00ff,
-      -1px 0 #00ffff;
-    transform: translate(1px, 1px);
-  }
-`;
+import { ArrowDown, Github, Mail } from 'lucide-react';
+import { roles, aboutDescription } from '../data/siteData';
 
 const HeroSection = styled.section`
   min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
   position: relative;
-  padding: ${({ theme }) => theme.spacing['4xl']} ${({ theme }) => theme.spacing.xl};
+  padding-top: ${({ theme }) => theme.spacing['4xl']};
+  padding-bottom: ${({ theme }) => theme.spacing['4xl']};
+  padding-left: ${({ theme }) => theme.spacing.xl};
+  padding-right: ${({ theme }) => theme.spacing.xl};
   overflow: hidden;
+
+  @media (max-width: 480px) {
+    padding-left: ${({ theme }) => theme.spacing.md};
+    padding-right: ${({ theme }) => theme.spacing.md};
+  }
 `;
 
-const BackgroundOrb = styled(motion.div)<{ $color: string; $size: string; $top: string; $left: string }>`
+const AmbientOrb = styled.div<{ $color: string; $size: string; $top: string; $left: string }>`
   position: absolute;
   width: ${({ $size }) => $size};
   height: ${({ $size }) => $size};
   border-radius: 50%;
   background: ${({ $color }) => $color};
-  filter: blur(80px);
-  opacity: 0.4;
+  filter: blur(140px);
+  opacity: 0.12;
   top: ${({ $top }) => $top};
   left: ${({ $left }) => $left};
   pointer-events: none;
 `;
 
-const HeroContent = styled.div`
-  max-width: 1000px;
-  text-align: center;
+/* ── Same 900px as all other sections ── */
+const HeroInner = styled.div`
+  max-width: 1080px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: ${({ theme }) => theme.spacing['3xl']};
+  align-items: flex-start;
+  padding-top: ${({ theme }) => theme.spacing['2xl']};
   position: relative;
   z-index: 2;
-`;
 
-const WelcomeTag = styled(motion.div)`
-  display: inline-flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
-  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.lg};
-  background: ${({ theme }) => theme.colors.glass.background};
-  backdrop-filter: blur(10px);
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-  font-family: ${({ theme }) => theme.fonts.mono};
-  font-size: ${({ theme }) => theme.fontSizes.xs};
-  color: ${({ theme }) => theme.colors.primary};
-`;
-
-const HeroTitle = styled(motion.h1)`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: ${({ theme }) => theme.fontSizes.hero};
-  font-weight: 900;
-  line-height: 1.1;
-  margin-bottom: ${({ theme }) => theme.spacing.xl};
-  letter-spacing: -0.02em;
-
-  .gradient {
-    background: ${({ theme }) => theme.colors.gradient.primary};
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    text-align: center;
   }
 `;
 
-const HeroSubtitle = styled(motion.p)`
-  font-size: ${({ theme }) => theme.fontSizes.lg};
-  color: ${({ theme }) => theme.colors.textMuted};
-  max-width: 650px;
-  margin: 0 auto ${({ theme }) => theme.spacing['3xl']};
-  line-height: 1.8;
+/* ── Photo: no forced square, natural ratio ── */
+const PhotoCol = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.md};
+
+  @media (max-width: 768px) {
+    max-width: 160px;
+    margin: 0 auto;
+  }
 `;
 
-const RolesGrid = styled(motion.div)`
+const ProfileImage = styled.img`
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  filter: drop-shadow(0 4px 24px rgba(91, 138, 247, 0.12));
+`;
+
+const AffiliationBadge = styled.div`
+  display: inline-flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm};
+  padding-top: ${({ theme }) => theme.spacing.xs};
+  padding-bottom: ${({ theme }) => theme.spacing.xs};
+  padding-left: ${({ theme }) => theme.spacing.md};
+  padding-right: ${({ theme }) => theme.spacing.md};
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 0.68rem;
+  color: ${({ theme }) => theme.colors.primary};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  white-space: nowrap;
+`;
+
+const QuickLinks = styled.div`
+  display: flex;
+  gap: ${({ theme }) => theme.spacing.sm};
+  justify-content: center;
+  flex-wrap: wrap;
+`;
+
+const QuickLink = styled(motion.a)`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 10px;
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: 0.68rem;
+  color: ${({ theme }) => theme.colors.textMuted};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  transition: all ${({ theme }) => theme.transitions.fast};
+  text-decoration: none;
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+    border-color: ${({ theme }) => theme.colors.primary};
+    background: ${({ theme }) => theme.colors.surface};
+  }
+`;
+
+/* ── Bio ── */
+const BioCol = styled(motion.div)`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.xl};
+`;
+
+const NameBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.sm};
+`;
+
+const HeroName = styled.h1`
+  font-family: ${({ theme }) => theme.fonts.heading};
+  font-size: clamp(1.8rem, 3vw + 0.8rem, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: ${({ theme }) => theme.colors.text};
+`;
+
+const HeroPosition = styled.p`
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  color: ${({ theme }) => theme.colors.primary};
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm};
+
+  &::before {
+    content: '';
+    width: 18px;
+    height: 1px;
+    background: ${({ theme }) => theme.colors.primary};
+    flex-shrink: 0;
+  }
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    &::before { display: none; }
+  }
+`;
+
+const BioParagraph = styled.p`
+  font-size: ${({ theme }) => theme.fontSizes.base};
+  color: ${({ theme }) => theme.colors.textMuted};
+  line-height: 1.9;
+  max-width: 540px;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+`;
+
+const ResearchInterests = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: ${({ theme }) => theme.spacing.sm};
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+`;
+
+const InterestTag = styled.span`
+  padding: 4px ${({ theme }) => theme.spacing.md};
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  color: ${({ theme }) => theme.colors.textMuted};
+  background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  border-radius: ${({ theme }) => theme.borderRadius.full};
+  transition: all ${({ theme }) => theme.transitions.fast};
+
+  &:hover {
+    color: ${({ theme }) => theme.colors.primary};
+    border-color: ${({ theme }) => theme.colors.primary};
+  }
+`;
+
+const RolesRow = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: ${({ theme }) => theme.spacing.md};
-  max-width: 800px;
-  margin: 0 auto;
+  gap: ${({ theme }) => theme.spacing.sm};
 
-  @media (max-width: 640px) {
+  @media (max-width: 480px) {
     grid-template-columns: 1fr;
   }
 `;
 
-const RoleCard = styled(motion.div)<{ $glitch?: boolean }>`
+const RoleChip = styled(motion.div)`
   display: flex;
   align-items: center;
-  gap: ${({ theme }) => theme.spacing.md};
-  padding: ${({ theme }) => theme.spacing.lg} ${({ theme }) => theme.spacing.xl};
+  gap: ${({ theme }) => theme.spacing.sm};
+  padding-top: ${({ theme }) => theme.spacing.md};
+  padding-bottom: ${({ theme }) => theme.spacing.md};
+  padding-left: ${({ theme }) => theme.spacing.lg};
+  padding-right: ${({ theme }) => theme.spacing.lg};
   background: ${({ theme }) => theme.colors.glass.background};
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(12px);
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
+  border-radius: ${({ theme }) => theme.borderRadius.md};
   font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: ${({ theme }) => theme.fontSizes.base};
-  font-weight: 600;
+  font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.textMuted};
   transition: all ${({ theme }) => theme.transitions.normal};
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.primary};
-    box-shadow: 0 0 30px ${({ theme }) => theme.colors.primaryGlow};
-    transform: translateY(-2px);
-    
-    ${({ $glitch }) => $glitch && css`
-      animation: ${glitchAnimation} 0.3s ease;
-    `}
+    border-color: ${({ theme }) => theme.colors.borderHover};
+    color: ${({ theme }) => theme.colors.text};
   }
 
-  .icon {
-    font-size: 1.5rem;
-  }
+  .icon { font-size: 1rem; flex-shrink: 0; }
 `;
 
-const Description = styled(motion.p)`
-  margin-top: ${({ theme }) => theme.spacing['2xl']};
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  color: ${({ theme }) => theme.colors.textDim};
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
-  line-height: 1.8;
-`;
-
-const ScrollIndicator = styled(motion.div)`
+const ScrollIndicator = styled(motion.button)`
   position: absolute;
-  bottom: ${({ theme }) => theme.spacing['md']};
+  bottom: ${({ theme }) => theme.spacing.xl};
+  left: 50%;
   transform: translateX(-50%);
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
   color: ${({ theme }) => theme.colors.textDim};
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  background: none;
+  border: none;
   cursor: pointer;
 
-  span {
-    font-size: ${({ theme }) => theme.fontSizes.xs};
-    font-family: ${({ theme }) => theme.fonts.mono};
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
+  &:hover { color: ${({ theme }) => theme.colors.textMuted}; }
+
+  @media (max-width: 480px) { display: none; }
 `;
+
+const researchInterests = ['HCI', 'AI Design', 'Voice Interaction', 'Generative AI', 'Medical AI', 'UX Research'];
 
 const containerVariants = {
   hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-      delayChildren: 0.2,
-    },
-  },
+  visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.1 } },
 };
-
 const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] }
-  },
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
 };
 
 export const Hero = () => {
-  const scrollToProjects = () => {
-    document.querySelector('#projects')?.scrollIntoView({ behavior: 'smooth' });
-  };
+  const scrollTo = (id: string) =>
+    document.querySelector(id)?.scrollIntoView({ behavior: 'smooth' });
 
   return (
     <HeroSection id="hero">
-      <BackgroundOrb
-        $color="#6366f1"
-        $size="600px"
-        $top="-20%"
-        $left="20%"
-        animate={{
-          x: [0, 50, 0],
-          y: [0, 30, 0],
-        }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <BackgroundOrb
-        $color="#8b5cf6"
-        $size="400px"
-        $top="50%"
-        $left="70%"
-        animate={{
-          x: [0, -30, 0],
-          y: [0, 50, 0],
-        }}
-        transition={{
-          duration: 15,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
-      <BackgroundOrb
-        $color="#06b6d4"
-        $size="300px"
-        $top="70%"
-        $left="10%"
-        animate={{
-          x: [0, 40, 0],
-          y: [0, -20, 0],
-        }}
-        transition={{
-          duration: 18,
-          repeat: Infinity,
-          ease: "easeInOut",
-        }}
-      />
+      <AmbientOrb $color="#5b8af7" $size="500px" $top="-5%" $left="35%" />
+      <AmbientOrb $color="#7c6ef5" $size="300px" $top="55%" $left="65%" />
 
-      <HeroContent>
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
+      <HeroInner>
+        {/* ── photo ── */}
+        <PhotoCol
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <WelcomeTag variants={itemVariants}>
-            <Sparkles size={14} />
-            Welcome to my digital space
-          </WelcomeTag>
+          {/* Changed to id_photo_nobg.png */}
+          <ProfileImage src="/id_photo_nobg.png" alt="JungWon Park" />
+          <AffiliationBadge>KAIST · Class of 2022</AffiliationBadge>
+          <QuickLinks>
+            <QuickLink
+              href="https://github.com/ksiwon"
+              target="_blank"
+              rel="noopener noreferrer"
+              whileHover={{ y: -1 }}
+            >
+              <Github size={11} /> GitHub
+            </QuickLink>
+            <QuickLink
+              href="mailto:pjo12346@kaist.ac.kr"
+              whileHover={{ y: -1 }}
+            >
+              <Mail size={11} /> Email
+            </QuickLink>
+            {/* Papers link removed */}
+          </QuickLinks>
+        </PhotoCol>
 
-          <HeroTitle variants={itemVariants}>
-            <span className="gradient">Siwon's</span> Atelier
-          </HeroTitle>
+        {/* ── bio ── */}
+        <BioCol variants={containerVariants} initial="hidden" animate="visible">
+          <NameBlock>
+            <motion.div variants={itemVariants}>
+              <HeroName>JungWon Park</HeroName>
+            </motion.div>
+            <motion.div variants={itemVariants}>
+              <HeroPosition>Industrial Design & Computer Science, KAIST</HeroPosition>
+            </motion.div>
+          </NameBlock>
 
-          <HeroSubtitle variants={itemVariants}>
-            Frontend Developer researching UX,<br />
-            Designer experimenting with AI and Interaction Design.
-          </HeroSubtitle>
+          <motion.div variants={itemVariants}>
+            <BioParagraph>{aboutDescription}</BioParagraph>
+          </motion.div>
 
-          <RolesGrid variants={containerVariants}>
-            {roles.map((role, index) => (
-              <RoleCard
-                key={role.title}
-                $glitch={role.glitch}
-                variants={itemVariants}
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                custom={index}
-              >
-                <span className="icon">{role.icon}</span>
-                <span>{role.title}</span>
-              </RoleCard>
-            ))}
-          </RolesGrid>
+          <motion.div variants={itemVariants}>
+            <ResearchInterests>
+              {researchInterests.map((tag) => (
+                <InterestTag key={tag}>{tag}</InterestTag>
+              ))}
+            </ResearchInterests>
+          </motion.div>
 
-          <Description variants={itemVariants}>
-            {aboutDescription}
-          </Description>
-        </motion.div>
-      </HeroContent>
+          <motion.div variants={itemVariants}>
+            <RolesRow>
+              {roles.map((role) => (
+                <RoleChip key={role.title} whileHover={{ scale: 1.01 }}>
+                  <span className="icon">{role.icon}</span>
+                  <span>{role.title}</span>
+                </RoleChip>
+              ))}
+            </RolesRow>
+          </motion.div>
+        </BioCol>
+      </HeroInner>
 
       <ScrollIndicator
-        onClick={scrollToProjects}
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 1.5 }}
-        whileHover={{ y: 5 }}
+        onClick={() => scrollTo('#about')}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.4 }}
+        whileHover={{ y: 3 }}
       >
-        <span>Scroll to explore</span>
-        <motion.div
-          animate={{ y: [0, 5, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-        >
-          <ArrowDown size={20} />
+        <span>scroll</span>
+        <motion.div animate={{ y: [0, 4, 0] }} transition={{ duration: 1.6, repeat: Infinity }}>
+          <ArrowDown size={15} />
         </motion.div>
       </ScrollIndicator>
     </HeroSection>

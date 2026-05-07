@@ -69,8 +69,8 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
 
   ::-webkit-scrollbar-track {
@@ -79,7 +79,7 @@ export const GlobalStyles = createGlobalStyle`
 
   ::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.colors.textDim};
-    border-radius: 4px;
+    border-radius: 3px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
@@ -92,38 +92,11 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   @keyframes pulse-glow {
-    0%, 100% { 
-      box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+    0%, 100% {
+      box-shadow: 0 0 20px rgba(91, 138, 247, 0.2);
     }
-    50% { 
-      box-shadow: 0 0 40px rgba(99, 102, 241, 0.5), 0 0 60px rgba(139, 92, 246, 0.3);
-    }
-  }
-
-  @keyframes glitch {
-    0% {
-      clip-path: polygon(0 2%, 100% 2%, 100% 5%, 0 5%);
-      transform: translate(-2px, 2px);
-    }
-    20% {
-      clip-path: polygon(0 78%, 100% 78%, 100% 100%, 0 100%);
-      transform: translate(2px, -2px);
-    }
-    40% {
-      clip-path: polygon(0 54%, 100% 54%, 100% 56%, 0 56%);
-      transform: translate(-2px, 0);
-    }
-    60% {
-      clip-path: polygon(0 0, 100% 0, 100% 30%, 0 30%);
-      transform: translate(0, 2px);
-    }
-    80% {
-      clip-path: polygon(0 45%, 100% 45%, 100% 50%, 0 50%);
-      transform: translate(2px, 0);
-    }
-    100% {
-      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
-      transform: translate(0, 0);
+    50% {
+      box-shadow: 0 0 40px rgba(91, 138, 247, 0.4), 0 0 60px rgba(124, 110, 245, 0.2);
     }
   }
 
@@ -135,5 +108,10 @@ export const GlobalStyles = createGlobalStyle`
   @keyframes rotate {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
+  }
+
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 `;

@@ -1,40 +1,33 @@
-import styled, { keyframes, css } from 'styled-components';
+import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { Mail, Send, Sparkles, MapPin, ExternalLink } from 'lucide-react';
-import { contacts } from '../data/projects';
-
-const pulseAnimation = keyframes`
-  0% {
-    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
-  }
-  70% {
-    box-shadow: 0 0 0 20px rgba(99, 102, 241, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
-  }
-`;
+import { Mail, Send, MapPin, ExternalLink, MessageCircle } from 'lucide-react';
+import { contacts } from '../data/siteData';
 
 const ContactSection = styled.section`
-  padding: ${({ theme }) => theme.spacing['5xl']} ${({ theme }) => theme.spacing.xl};
+  padding-top: ${({ theme }) => theme.spacing['5xl']};
+  padding-bottom: ${({ theme }) => theme.spacing['5xl']};
+  padding-left: ${({ theme }) => theme.spacing.xl};
+  padding-right: ${({ theme }) => theme.spacing.xl};
   position: relative;
 
   @media (max-width: 480px) {
-    padding: ${({ theme }) => theme.spacing['3xl']} ${({ theme }) => theme.spacing.md};
+    padding-top: ${({ theme }) => theme.spacing['3xl']};
+    padding-bottom: ${({ theme }) => theme.spacing['3xl']};
+    padding-left: ${({ theme }) => theme.spacing.md};
+    padding-right: ${({ theme }) => theme.spacing.md};
   }
 `;
 
 const Container = styled.div`
-  max-width: 900px;
+  max-width: 1080px;
   margin: 0 auto;
 `;
 
 const SectionHeader = styled(motion.div)`
-  text-align: center;
   margin-bottom: ${({ theme }) => theme.spacing['3xl']};
 `;
 
-const SectionTag = styled.span`
+const SectionLabel = styled.span`
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
@@ -48,29 +41,26 @@ const SectionTag = styled.span`
 
 const SectionTitle = styled.h2`
   font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: ${({ theme }) => theme.fontSizes['4xl']};
+  font-size: ${({ theme }) => theme.fontSizes['3xl']};
   font-weight: 800;
-  background: ${({ theme }) => theme.colors.gradient.primary};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  margin-bottom: ${({ theme }) => theme.spacing.md};
+  color: ${({ theme }) => theme.colors.text};
+  letter-spacing: -0.02em;
+  margin-bottom: ${({ theme }) => theme.spacing.sm};
 `;
 
 const SectionSubtitle = styled.p`
-  font-size: ${({ theme }) => theme.fontSizes.lg};
+  font-size: ${({ theme }) => theme.fontSizes.base};
   color: ${({ theme }) => theme.colors.textMuted};
-  max-width: 500px;
-  margin: 0 auto;
+  max-width: 440px;
+  line-height: 1.7;
 `;
 
 const ContactCard = styled(motion.div)`
   background: ${({ theme }) => theme.colors.glass.background};
-  backdrop-filter: blur(20px);
+  backdrop-filter: blur(24px);
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.xl};
   padding: ${({ theme }) => theme.spacing['3xl']};
-  text-align: center;
 
   @media (max-width: 480px) {
     padding: ${({ theme }) => theme.spacing.xl};
@@ -82,18 +72,18 @@ const LocationBadge = styled.div`
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
-  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.lg};
+  padding-top: ${({ theme }) => theme.spacing.sm};
+  padding-bottom: ${({ theme }) => theme.spacing.sm};
+  padding-left: ${({ theme }) => theme.spacing.lg};
+  padding-right: ${({ theme }) => theme.spacing.lg};
   background: ${({ theme }) => theme.colors.surface};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-size: ${({ theme }) => theme.fontSizes.sm};
+  font-family: ${({ theme }) => theme.fonts.mono};
   color: ${({ theme }) => theme.colors.textMuted};
   margin-bottom: ${({ theme }) => theme.spacing['2xl']};
   white-space: nowrap;
-
-  @media (max-width: 480px) {
-    font-size: ${({ theme }) => theme.fontSizes.xs};
-    padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.md};
-  }
 `;
 
 const EmailsContainer = styled.div`
@@ -106,61 +96,60 @@ const EmailsContainer = styled.div`
 const EmailLink = styled(motion.a)`
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: ${({ theme }) => theme.spacing.md};
-  padding: ${({ theme }) => theme.spacing.lg} ${({ theme }) => theme.spacing.xl};
+  padding-top: ${({ theme }) => theme.spacing.md};
+  padding-bottom: ${({ theme }) => theme.spacing.md};
+  padding-left: ${({ theme }) => theme.spacing.xl};
+  padding-right: ${({ theme }) => theme.spacing.xl};
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.lg};
   font-family: ${({ theme }) => theme.fonts.mono};
-  font-size: ${({ theme }) => theme.fontSizes.base};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.text};
   transition: all ${({ theme }) => theme.transitions.normal};
-  overflow: hidden;
-  text-overflow: ellipsis;
+  text-decoration: none;
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.primary};
     background: ${({ theme }) => theme.colors.surfaceHover};
-    box-shadow: 0 0 30px ${({ theme }) => theme.colors.primaryGlow};
+    box-shadow: 0 0 24px ${({ theme }) => theme.colors.primaryGlow};
   }
 
-  svg {
-    color: ${({ theme }) => theme.colors.primary};
-    flex-shrink: 0;
-  }
+  svg { color: ${({ theme }) => theme.colors.primary}; flex-shrink: 0; }
 
   @media (max-width: 480px) {
-    font-size: ${({ theme }) => theme.fontSizes.sm};
-    padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.lg};
-    gap: ${({ theme }) => theme.spacing.sm};
+    font-size: ${({ theme }) => theme.fontSizes.xs};
+    padding-left: ${({ theme }) => theme.spacing.lg};
+    padding-right: ${({ theme }) => theme.spacing.lg};
   }
+`;
+
+const CTARow = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const CTAButton = styled(motion.a)`
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
-  padding: ${({ theme }) => theme.spacing.lg} ${({ theme }) => theme.spacing['2xl']};
-  background: ${({ theme }) => theme.colors.gradient.primary};
+  padding-top: ${({ theme }) => theme.spacing.md};
+  padding-bottom: ${({ theme }) => theme.spacing.md};
+  padding-left: ${({ theme }) => theme.spacing['2xl']};
+  padding-right: ${({ theme }) => theme.spacing['2xl']};
+  background: ${({ theme }) => theme.colors.primary};
   border-radius: ${({ theme }) => theme.borderRadius.full};
   font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: ${({ theme }) => theme.fontSizes.base};
+  font-size: ${({ theme }) => theme.fontSizes.sm};
   font-weight: 600;
   color: white;
   transition: all ${({ theme }) => theme.transitions.normal};
-  white-space: nowrap;
+  text-decoration: none;
 
   &:hover {
     transform: translateY(-2px);
-    ${css`
-      animation: ${pulseAnimation} 2s infinite;
-    `}
-  }
-
-  @media (max-width: 480px) {
-    padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.xl};
-    font-size: ${({ theme }) => theme.fontSizes.sm};
+    box-shadow: 0 8px 24px ${({ theme }) => theme.colors.primaryGlow};
   }
 `;
 
@@ -172,125 +161,118 @@ const SocialLinks = styled.div`
   margin-top: ${({ theme }) => theme.spacing['2xl']};
   padding-top: ${({ theme }) => theme.spacing['2xl']};
   border-top: 1px solid ${({ theme }) => theme.colors.border};
-
-  @media (max-width: 480px) {
-    gap: ${({ theme }) => theme.spacing.sm};
-    margin-top: ${({ theme }) => theme.spacing.xl};
-    padding-top: ${({ theme }) => theme.spacing.xl};
-  }
 `;
 
 const SocialLink = styled(motion.a)`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
-  padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.spacing.lg};
+  padding-top: ${({ theme }) => theme.spacing.sm};
+  padding-bottom: ${({ theme }) => theme.spacing.sm};
+  padding-left: ${({ theme }) => theme.spacing.lg};
+  padding-right: ${({ theme }) => theme.spacing.lg};
   font-family: ${({ theme }) => theme.fonts.heading};
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.textMuted};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   transition: all ${({ theme }) => theme.transitions.fast};
-  white-space: nowrap;
+  text-decoration: none;
 
   &:hover {
-    color: ${({ theme }) => theme.colors.text};
+    color: ${({ theme }) => theme.colors.primary};
+    border-color: ${({ theme }) => theme.colors.primary};
     background: ${({ theme }) => theme.colors.surface};
-  }
-
-  @media (max-width: 480px) {
-    padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
-    font-size: ${({ theme }) => theme.fontSizes.xs};
-    gap: ${({ theme }) => theme.spacing.xs};
   }
 `;
 
-export const Contact = () => {
-  return (
-    <ContactSection id="contact">
-      <Container>
-        <SectionHeader
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <SectionTag>
-            <Sparkles size={14} />
-            Contact
-          </SectionTag>
-          <SectionTitle>Let's Connect</SectionTitle>
-          <SectionSubtitle>
-            Open to project collaborations, research participation, or just a casual chat.
-          </SectionSubtitle>
-        </SectionHeader>
+export const Contact = () => (
+  <ContactSection id="contact">
+    <Container>
+      <SectionHeader
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+      >
+        <SectionLabel><MessageCircle size={13} /> Contact</SectionLabel>
+        <SectionTitle>Let's Connect</SectionTitle>
+        <SectionSubtitle>
+          Open to research collaborations, project partnerships, or a casual conversation.
+        </SectionSubtitle>
+      </SectionHeader>
 
-        <ContactCard
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          <LocationBadge>
-            <MapPin size={16} />
-            KAIST, Daejeon, South Korea
-          </LocationBadge>
+      <ContactCard
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, delay: 0.2 }}
+      >
+        <LocationBadge>
+          <MapPin size={14} />
+          KAIST, Daejeon, Republic of Korea
+        </LocationBadge>
 
-          <EmailsContainer>
-            <EmailLink
-              href={`mailto:${contacts.email1}`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Mail size={20} />
-              {contacts.email1}
-            </EmailLink>
-            <EmailLink
-              href={`mailto:${contacts.email2}`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              <Mail size={20} />
-              {contacts.email2}
-            </EmailLink>
-          </EmailsContainer>
+        <EmailsContainer>
+          <EmailLink
+            href={`mailto:${contacts.email1}`}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
+          >
+            <Mail size={18} />
+            {contacts.email1}
+          </EmailLink>
+          <EmailLink
+            href={`mailto:${contacts.email2}`}
+            whileHover={{ scale: 1.01 }}
+            whileTap={{ scale: 0.99 }}
+          >
+            <Mail size={18} />
+            {contacts.email2}
+          </EmailLink>
+        </EmailsContainer>
 
+        <CTARow>
           <CTAButton
             href={`mailto:${contacts.email1}`}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
           >
-            <Send size={18} />
+            <Send size={16} />
             Send Message
           </CTAButton>
+        </CTARow>
 
-          <SocialLinks>
-            <SocialLink
-              href="https://github.com/ksiwon"
-              target="_blank"
-              whileHover={{ y: -2 }}
-            >
-              <ExternalLink size={16} />
-              GitHub
-            </SocialLink>
-            <SocialLink
-              href="https://www.linkedin.com/in/jung-won-park-954487376/"
-              target="_blank"
-              whileHover={{ y: -2 }}
-            >
-              <ExternalLink size={16} />
-              LinkedIn
-            </SocialLink>
-            <SocialLink
-              href="https://sparcs.org"
-              target="_blank"
-              whileHover={{ y: -2 }}
-            >
-              <ExternalLink size={16} />
-              SPARCS
-            </SocialLink>
-          </SocialLinks>
-        </ContactCard>
-      </Container>
-    </ContactSection>
-  );
-};
+        <SocialLinks>
+          <SocialLink
+            href="https://github.com/ksiwon"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ y: -1 }}
+          >
+            <ExternalLink size={14} />
+            GitHub
+          </SocialLink>
+          <SocialLink
+            href="https://www.linkedin.com/in/jung-won-park-954487376/"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ y: -1 }}
+          >
+            <ExternalLink size={14} />
+            LinkedIn
+          </SocialLink>
+          <SocialLink
+            href="https://sparcs.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            whileHover={{ y: -1 }}
+          >
+            <ExternalLink size={14} />
+            SPARCS
+          </SocialLink>
+        </SocialLinks>
+      </ContactCard>
+    </Container>
+  </ContactSection>
+);
