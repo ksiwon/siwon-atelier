@@ -36,9 +36,9 @@ export const publications: Publication[] = [
       'Jungmi Park (Teacher Advisor, Busan Science High School)',
       'Gwangseok Kim, Ph.D. (Professor, Dept. of Optical Engineering, Pusan National University)',
     ],
-    venue: 'KSICE Fall 2020',
+    venue: 'KSIC Fall 2020',
     venueFullName:
-      'Korean Society of Industry-Academic Cooperation in Engineering (KSICE), Fall Conference 2020',
+      'The Korean Society of Industry Convergence (KSIC), 2020 Fall Conference',
     year: 2020,
     type: 'conference',
     featured: true,
