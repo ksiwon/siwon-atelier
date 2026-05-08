@@ -8,6 +8,8 @@ const HeroSection = styled.section`
   display: flex;
   align-items: center;
   position: relative;
+  width: 100%;
+  max-width: 100vw;
   padding-top: ${({ theme }) => theme.spacing['4xl']};
   padding-bottom: ${({ theme }) => theme.spacing['4xl']};
   padding-left: ${({ theme }) => theme.spacing.xl};
@@ -31,6 +33,12 @@ const AmbientOrb = styled.div<{ $color: string; $size: string; $top: string; $le
   top: ${({ $top }) => $top};
   left: ${({ $left }) => $left};
   pointer-events: none;
+
+  @media (max-width: 768px) {
+    width: calc(${({ $size }) => $size} * 0.6);
+    height: calc(${({ $size }) => $size} * 0.6);
+    filter: blur(80px);
+  }
 `;
 
 /* ── Same 900px as all other sections ── */

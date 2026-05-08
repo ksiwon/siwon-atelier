@@ -9,6 +9,7 @@ const ProjectsSection = styled.section`
   padding-bottom: ${({ theme }) => theme.spacing['5xl']};
   padding-left: ${({ theme }) => theme.spacing.xl};
   padding-right: ${({ theme }) => theme.spacing.xl};
+  overflow: hidden;
 
   @media (max-width: 480px) {
     padding-left: ${({ theme }) => theme.spacing.md};
@@ -102,6 +103,10 @@ const ProjectRow = styled(motion.a)<{ $color: string }>`
     opacity: 0;
     transition: opacity ${({ theme }) => theme.transitions.fast};
     border-radius: 0 2px 2px 0;
+
+    @media (max-width: 480px) {
+      left: -${({ theme }) => theme.spacing.md};
+    }
   }
 
   &:hover::before { opacity: 1; }

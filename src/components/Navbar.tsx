@@ -9,6 +9,8 @@ const Nav = styled(motion.nav)<{ $scrolled: boolean }>`
   top: 0;
   left: 0;
   right: 0;
+  width: 100%;
+  overflow-x: hidden;
   z-index: ${({ theme }) => theme.zIndex.nav};
   padding-top: ${({ theme }) => theme.spacing.md};
   padding-bottom: ${({ theme }) => theme.spacing.md};
