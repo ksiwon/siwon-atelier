@@ -4,22 +4,25 @@ import { Mail, MapPin, ExternalLink, MessageCircle, Building2, Globe } from 'luc
 import { contacts } from '../data/siteData';
 
 const ContactSection = styled.section`
-  padding-top: ${({ theme }) => theme.spacing['5xl']};
-  padding-bottom: ${({ theme }) => theme.spacing['5xl']};
-  padding-left: ${({ theme }) => theme.spacing.xl};
-  padding-right: ${({ theme }) => theme.spacing.xl};
+  padding-top: ${({ theme }) => theme.layout.sectionPadY};
+  padding-bottom: ${({ theme }) => theme.layout.sectionPadY};
+  padding-left: ${({ theme }) => theme.layout.sectionPadX};
+  padding-right: ${({ theme }) => theme.layout.sectionPadX};
   position: relative;
 
+  @media (max-width: 768px) {
+    padding-top: ${({ theme }) => theme.layout.sectionPadYSm};
+    padding-bottom: ${({ theme }) => theme.layout.sectionPadYSm};
+  }
+
   @media (max-width: 480px) {
-    padding-top: ${({ theme }) => theme.spacing['3xl']};
-    padding-bottom: ${({ theme }) => theme.spacing['3xl']};
-    padding-left: ${({ theme }) => theme.spacing.md};
-    padding-right: ${({ theme }) => theme.spacing.md};
+    padding-left: ${({ theme }) => theme.layout.sectionPadXSm};
+    padding-right: ${({ theme }) => theme.layout.sectionPadXSm};
   }
 `;
 
 const Container = styled.div`
-  max-width: 1080px;
+  max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
 `;
 

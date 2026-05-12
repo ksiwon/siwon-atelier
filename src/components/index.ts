@@ -7,5 +7,3 @@ export { Projects } from './Projects';
 export { TechStack } from './TechStack';
 export { Contact } from './Contact';
 export { Footer } from './Footer';
-export { Cursor } from './Cursor';
-export { ParticleBackground } from './ParticleBackground';

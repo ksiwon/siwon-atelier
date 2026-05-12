@@ -9,21 +9,25 @@ const scroll = keyframes`
 `;
 
 const TechSection = styled.section`
-  padding-top: ${({ theme }) => theme.spacing['4xl']};
-  padding-bottom: ${({ theme }) => theme.spacing['4xl']};
+  padding-top: ${({ theme }) => theme.layout.sectionPadY};
+  padding-bottom: ${({ theme }) => theme.layout.sectionPadY};
   overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding-top: ${({ theme }) => theme.layout.sectionPadYSm};
+    padding-bottom: ${({ theme }) => theme.layout.sectionPadYSm};
+  }
 `;
 
-/* ── Same 900px ── */
 const Container = styled.div`
-  max-width: 1080px;
+  max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
-  padding-left: ${({ theme }) => theme.spacing.xl};
-  padding-right: ${({ theme }) => theme.spacing.xl};
+  padding-left: ${({ theme }) => theme.layout.sectionPadX};
+  padding-right: ${({ theme }) => theme.layout.sectionPadX};
 
   @media (max-width: 480px) {
-    padding-left: ${({ theme }) => theme.spacing.md};
-    padding-right: ${({ theme }) => theme.spacing.md};
+    padding-left: ${({ theme }) => theme.layout.sectionPadXSm};
+    padding-right: ${({ theme }) => theme.layout.sectionPadXSm};
   }
 `;
 
@@ -51,7 +55,6 @@ const SectionTitle = styled.h2`
   letter-spacing: -0.02em;
 `;
 
-/* ── Marquee ── */
 const MarqueeContainer = styled.div`
   position: relative;
   width: 100%;
@@ -90,37 +93,33 @@ const TechItem = styled.div`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
-  padding-top: ${({ theme }) => theme.spacing.sm};
-  padding-bottom: ${({ theme }) => theme.spacing.sm};
-  padding-left: ${({ theme }) => theme.spacing.md};
-  padding-right: ${({ theme }) => theme.spacing.md};
-  margin-left: ${({ theme }) => theme.spacing.xs};
-  margin-right: ${({ theme }) => theme.spacing.xs};
+  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.md};
+  margin: 0 ${({ theme }) => theme.spacing.xs};
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.full};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   white-space: nowrap;
   transition: border-color ${({ theme }) => theme.transitions.fast};
 
-  &:hover { border-color: ${({ theme }) => theme.colors.primary}; }
+  &:hover { border-color: ${({ theme }) => theme.colors.borderHover}; }
 `;
 
-const TechDot = styled.div<{ $color: string }>`
-  width: 6px;
-  height: 6px;
+const TechDot = styled.div`
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: ${({ $color }) => $color};
+  background: ${({ theme }) => theme.colors.primary};
+  opacity: 0.6;
   flex-shrink: 0;
 `;
 
 const TechName = styled.span`
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  font-weight: 500;
+  font-weight: 400;
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
-/* ── Compact skills table ── */
 const SkillTable = styled.div`
   margin-top: ${({ theme }) => theme.spacing['3xl']};
   border-top: 1px solid ${({ theme }) => theme.colors.border};
@@ -142,24 +141,13 @@ const SkillRow = styled(motion.div)`
 `;
 
 const CategoryLabel = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.textMuted};
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.textDim};
   letter-spacing: 0.08em;
   text-transform: uppercase;
   white-space: nowrap;
-`;
-
-const CategoryDot = styled.div<{ $color: string }>`
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: ${({ $color }) => $color};
-  flex-shrink: 0;
 `;
 
 const SkillPills = styled.div`
@@ -171,10 +159,10 @@ const SkillPills = styled.div`
 const Pill = styled.span`
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  padding: 4px ${({ theme }) => theme.spacing.md};
+  padding: 3px ${({ theme }) => theme.spacing.md};
   color: ${({ theme }) => theme.colors.textMuted};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.full};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   transition: all ${({ theme }) => theme.transitions.fast};
 
   &:hover {
@@ -183,19 +171,11 @@ const Pill = styled.span`
   }
 `;
 
-const techColors: Record<string, string> = {
-  React: '#61dafb', TypeScript: '#3178c6', 'Next.js': '#aaaaaa',
-  Python: '#3776ab', FastAPI: '#009688', TensorFlow: '#ff6f00', PyTorch: '#ee4c2c',
-  Figma: '#f24e1e', 'Node.js': '#339933', MongoDB: '#47a248', AWS: '#ff9900',
-  Docker: '#2496ed', Git: '#f05032', Javascript: '#f7df1e', Streamlit: '#ff4b4b',
-  MySQL: '#4479a1', Render: '#46e3b7', Netlify: '#00c7b7', Blender: '#f5792a',
-};
-
 const skillCategories = [
-  { label: 'Frontend',      color: '#61dafb', skills: ['React', 'Next.js', 'TypeScript', 'Javascript', 'Streamlit'] },
-  { label: 'Backend / AI',  color: '#ff6f00', skills: ['Python', 'FastAPI', 'Node.js', 'TensorFlow', 'PyTorch', 'MySQL'] },
-  { label: 'Design',        color: '#f24e1e', skills: ['Figma', 'Adobe XD', 'Blender', 'After Effects', 'Prototyping'] },
-  { label: 'Infrastructure', color: '#ff9900', skills: ['AWS', 'Docker', 'MongoDB', 'Git', 'Render', 'Netlify'] },
+  { label: 'Frontend',       skills: ['React', 'Next.js', 'TypeScript', 'Javascript', 'Streamlit'] },
+  { label: 'Backend / AI',   skills: ['Python', 'FastAPI', 'Node.js', 'TensorFlow', 'PyTorch', 'MySQL'] },
+  { label: 'Design',         skills: ['Figma', 'Adobe XD', 'Blender', 'After Effects', 'Prototyping'] },
+  { label: 'Infrastructure', skills: ['AWS', 'Docker', 'MongoDB', 'Git', 'Render', 'Netlify'] },
 ];
 
 export const TechStack = () => {
@@ -219,7 +199,7 @@ export const TechStack = () => {
         <MarqueeTrack>
           {doubled.map((tech, i) => (
             <TechItem key={`${tech}-${i}`}>
-              <TechDot $color={techColors[tech] || '#5b8af7'} />
+              <TechDot />
               <TechName>{tech}</TechName>
             </TechItem>
           ))}
@@ -236,10 +216,7 @@ export const TechStack = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.08 }}
             >
-              <CategoryLabel>
-                <CategoryDot $color={cat.color} />
-                {cat.label}
-              </CategoryLabel>
+              <CategoryLabel>{cat.label}</CategoryLabel>
               <SkillPills>
                 {cat.skills.map((s) => <Pill key={s}>{s}</Pill>)}
               </SkillPills>

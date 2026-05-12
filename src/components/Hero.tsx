@@ -10,40 +10,25 @@ const HeroSection = styled.section`
   position: relative;
   width: 100%;
   max-width: 100vw;
-  padding-top: ${({ theme }) => theme.spacing['4xl']};
-  padding-bottom: ${({ theme }) => theme.spacing['4xl']};
-  padding-left: ${({ theme }) => theme.spacing.xl};
-  padding-right: ${({ theme }) => theme.spacing.xl};
+  padding-top: ${({ theme }) => theme.layout.sectionPadY};
+  padding-bottom: ${({ theme }) => theme.layout.sectionPadY};
+  padding-left: ${({ theme }) => theme.layout.sectionPadX};
+  padding-right: ${({ theme }) => theme.layout.sectionPadX};
   overflow: hidden;
 
-  @media (max-width: 480px) {
-    padding-left: ${({ theme }) => theme.spacing.md};
-    padding-right: ${({ theme }) => theme.spacing.md};
-  }
-`;
-
-const AmbientOrb = styled.div<{ $color: string; $size: string; $top: string; $left: string }>`
-  position: absolute;
-  width: ${({ $size }) => $size};
-  height: ${({ $size }) => $size};
-  border-radius: 50%;
-  background: ${({ $color }) => $color};
-  filter: blur(140px);
-  opacity: 0.12;
-  top: ${({ $top }) => $top};
-  left: ${({ $left }) => $left};
-  pointer-events: none;
-
   @media (max-width: 768px) {
-    width: calc(${({ $size }) => $size} * 0.6);
-    height: calc(${({ $size }) => $size} * 0.6);
-    filter: blur(80px);
+    padding-top: ${({ theme }) => theme.spacing['3xl']};
+    padding-bottom: ${({ theme }) => theme.spacing['3xl']};
+  }
+
+  @media (max-width: 480px) {
+    padding-left: ${({ theme }) => theme.layout.sectionPadXSm};
+    padding-right: ${({ theme }) => theme.layout.sectionPadXSm};
   }
 `;
 
-/* ── Same 900px as all other sections ── */
 const HeroInner = styled.div`
-  max-width: 1080px;
+  max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
   width: 100%;
   display: grid;
@@ -60,7 +45,6 @@ const HeroInner = styled.div`
   }
 `;
 
-/* ── Photo: no forced square, natural ratio ── */
 const PhotoCol = styled(motion.div)`
   display: flex;
   flex-direction: column;
@@ -77,23 +61,20 @@ const ProfileImage = styled.img`
   width: 100%;
   height: auto;
   display: block;
-  border-radius: ${({ theme }) => theme.borderRadius.lg};
-  filter: drop-shadow(0 4px 24px rgba(91, 138, 247, 0.12));
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  filter: grayscale(15%);
 `;
 
 const AffiliationBadge = styled.div`
   display: inline-flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
-  padding-top: ${({ theme }) => theme.spacing.xs};
-  padding-bottom: ${({ theme }) => theme.spacing.xs};
-  padding-left: ${({ theme }) => theme.spacing.md};
-  padding-right: ${({ theme }) => theme.spacing.md};
+  padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.md};
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: 0.68rem;
-  color: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.textMuted};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.full};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   white-space: nowrap;
 `;
 
@@ -113,18 +94,16 @@ const QuickLink = styled(motion.a)`
   font-size: 0.68rem;
   color: ${({ theme }) => theme.colors.textMuted};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.full};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   transition: all ${({ theme }) => theme.transitions.fast};
   text-decoration: none;
 
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
     border-color: ${({ theme }) => theme.colors.primary};
-    background: ${({ theme }) => theme.colors.surface};
   }
 `;
 
-/* ── Bio ── */
 const BioCol = styled(motion.div)`
   display: flex;
   flex-direction: column;
@@ -190,18 +169,18 @@ const ResearchInterests = styled.div`
 `;
 
 const InterestTag = styled.span`
-  padding: 4px ${({ theme }) => theme.spacing.md};
+  padding: 3px ${({ theme }) => theme.spacing.md};
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  color: ${({ theme }) => theme.colors.textMuted};
-  background: ${({ theme }) => theme.colors.surface};
+  color: ${({ theme }) => theme.colors.textDim};
+  background: transparent;
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.full};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   transition: all ${({ theme }) => theme.transitions.fast};
 
   &:hover {
-    color: ${({ theme }) => theme.colors.primary};
-    border-color: ${({ theme }) => theme.colors.primary};
+    color: ${({ theme }) => theme.colors.textMuted};
+    border-color: ${({ theme }) => theme.colors.borderHover};
   }
 `;
 
@@ -215,16 +194,17 @@ const RolesRow = styled.div`
   }
 `;
 
+const RoleDot = styled.div`
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.colors.primary};
+  flex-shrink: 0;
+`;
+
 const RoleChip = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
-  padding-top: ${({ theme }) => theme.spacing.md};
-  padding-bottom: ${({ theme }) => theme.spacing.md};
-  padding-left: ${({ theme }) => theme.spacing.lg};
-  padding-right: ${({ theme }) => theme.spacing.lg};
-  background: ${({ theme }) => theme.colors.glass.background};
-  backdrop-filter: blur(12px);
+  padding: ${({ theme }) => theme.spacing.md};
+  background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.md};
   font-family: ${({ theme }) => theme.fonts.heading};
@@ -232,13 +212,14 @@ const RoleChip = styled(motion.div)`
   font-weight: 500;
   color: ${({ theme }) => theme.colors.textMuted};
   transition: all ${({ theme }) => theme.transitions.normal};
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.sm};
 
   &:hover {
     border-color: ${({ theme }) => theme.colors.borderHover};
     color: ${({ theme }) => theme.colors.text};
   }
-
-  .icon { font-size: 1rem; flex-shrink: 0; }
 `;
 
 const ScrollIndicator = styled(motion.button)`
@@ -281,17 +262,13 @@ export const Hero = () => {
 
   return (
     <HeroSection id="hero">
-      <AmbientOrb $color="#5b8af7" $size="500px" $top="-5%" $left="35%" />
-      <AmbientOrb $color="#7c6ef5" $size="300px" $top="55%" $left="65%" />
-
       <HeroInner>
         {/* ── photo ── */}
         <PhotoCol
-          initial={{ opacity: 0, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.97 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          {/* Changed to id_photo_nobg.png */}
           <ProfileImage src="/id_photo_nobg.png" alt="JungWon Park" />
           <AffiliationBadge>KAIST · Class of 2022</AffiliationBadge>
           <QuickLinks>
@@ -309,7 +286,6 @@ export const Hero = () => {
             >
               <Mail size={11} /> Email
             </QuickLink>
-            {/* Papers link removed */}
           </QuickLinks>
         </PhotoCol>
 
@@ -340,8 +316,8 @@ export const Hero = () => {
             <RolesRow>
               {roles.map((role) => (
                 <RoleChip key={role.title} whileHover={{ scale: 1.01 }}>
-                  <span className="icon">{role.icon}</span>
-                  <span>{role.title}</span>
+                  <RoleDot />
+                  {role.title}
                 </RoleChip>
               ))}
             </RolesRow>

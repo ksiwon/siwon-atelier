@@ -1,22 +1,26 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { Lightbulb, Mic, Brain, Rocket, User } from 'lucide-react';
+import { User } from 'lucide-react';
 
 const AboutSection = styled.section`
-  padding-top: ${({ theme }) => theme.spacing['5xl']};
-  padding-bottom: ${({ theme }) => theme.spacing['5xl']};
-  padding-left: ${({ theme }) => theme.spacing.xl};
-  padding-right: ${({ theme }) => theme.spacing.xl};
+  padding-top: ${({ theme }) => theme.layout.sectionPadY};
+  padding-bottom: ${({ theme }) => theme.layout.sectionPadY};
+  padding-left: ${({ theme }) => theme.layout.sectionPadX};
+  padding-right: ${({ theme }) => theme.layout.sectionPadX};
+
+  @media (max-width: 768px) {
+    padding-top: ${({ theme }) => theme.layout.sectionPadYSm};
+    padding-bottom: ${({ theme }) => theme.layout.sectionPadYSm};
+  }
 
   @media (max-width: 480px) {
-    padding-left: ${({ theme }) => theme.spacing.md};
-    padding-right: ${({ theme }) => theme.spacing.md};
+    padding-left: ${({ theme }) => theme.layout.sectionPadXSm};
+    padding-right: ${({ theme }) => theme.layout.sectionPadXSm};
   }
 `;
 
-/* ── Same 900px as all sections ── */
 const Container = styled.div`
-  max-width: 1080px;
+  max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
 `;
 
@@ -44,7 +48,6 @@ const SectionTitle = styled.h2`
   letter-spacing: -0.02em;
 `;
 
-/* ── Two-column: text (2fr) + compact stats (1fr) ── */
 const ContentGrid = styled.div`
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -99,38 +102,33 @@ const InterestCard = styled(motion.div)`
   }
 `;
 
-const InterestIcon = styled.div<{ $color: string }>`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
-  border-radius: ${({ theme }) => theme.borderRadius.sm};
-  background: ${({ $color }) => $color}15;
-  color: ${({ $color }) => $color};
+const InterestDot = styled.div`
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: ${({ theme }) => theme.colors.primary};
   flex-shrink: 0;
 `;
 
 const InterestText = styled.span`
   font-family: ${({ theme }) => theme.fonts.heading};
   font-size: ${({ theme }) => theme.fontSizes.sm};
-  font-weight: 600;
-  color: ${({ theme }) => theme.colors.text};
+  font-weight: 500;
+  color: ${({ theme }) => theme.colors.textMuted};
 `;
 
-/* ── Compact stats: 2×2 grid ── */
 const StatsGrid = styled(motion.div)`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1px;
   background: ${({ theme }) => theme.colors.border};
   border: 1px solid ${({ theme }) => theme.colors.border};
-  border-radius: ${({ theme }) => theme.borderRadius.xl};
+  border-radius: ${({ theme }) => theme.borderRadius.lg};
   overflow: hidden;
 
   @media (max-width: 768px) {
     grid-template-columns: repeat(4, 1fr);
-    border-radius: ${({ theme }) => theme.borderRadius.lg};
+    border-radius: ${({ theme }) => theme.borderRadius.md};
   }
 
   @media (max-width: 480px) {
@@ -138,7 +136,7 @@ const StatsGrid = styled(motion.div)`
   }
 `;
 
-const StatCell = styled.div<{ $color: string }>`
+const StatCell = styled.div`
   background: ${({ theme }) => theme.colors.surface};
   padding: ${({ theme }) => theme.spacing.lg};
   display: flex;
@@ -146,11 +144,7 @@ const StatCell = styled.div<{ $color: string }>`
   gap: 6px;
   transition: background ${({ theme }) => theme.transitions.fast};
 
-  &:hover {
-    background: ${({ theme }) => theme.colors.surfaceHover};
-  }
-
-  svg { color: ${({ $color }) => $color}; }
+  &:hover { background: ${({ theme }) => theme.colors.surfaceHover}; }
 `;
 
 const StatNumber = styled.div`
@@ -172,17 +166,17 @@ const StatLabel = styled.div`
 `;
 
 const interests = [
-  { text: 'HCI Research',      icon: <Brain size={15} />,    color: '#5b8af7' },
-  { text: 'AI Design',         icon: <Lightbulb size={15} />, color: '#7c6ef5' },
-  { text: 'Voice Interaction',  icon: <Mic size={15} />,     color: '#38c9b4' },
-  { text: 'Generative AI',     icon: <Rocket size={15} />,   color: '#ec4899' },
+  { text: 'HCI Research' },
+  { text: 'AI Design' },
+  { text: 'Voice Interaction' },
+  { text: 'Generative AI' },
 ];
 
 const stats = [
-  { number: '20+', label: 'Projects\nDelivered', icon: <Rocket size={16} />, color: '#5b8af7' },
-  { number: '4+',  label: 'Research\nProjects',  icon: <Brain size={16} />,  color: '#7c6ef5' },
-  { number: '1+',  label: 'Publications',        icon: <User size={16} />,   color: '#38c9b4' },
-  { number: '2',   label: 'Leadership\nRoles',   icon: <User size={16} />,   color: '#ec4899' },
+  { number: '20+', label: 'Projects\nDelivered' },
+  { number: '4+',  label: 'Research\nProjects' },
+  { number: '1+',  label: 'Publications' },
+  { number: '2',   label: 'Leadership\nRoles' },
 ];
 
 export const About = () => (
@@ -230,16 +224,14 @@ export const About = () => (
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.07 }}
-                whileHover={{ scale: 1.02 }}
               >
-                <InterestIcon $color={interest.color}>{interest.icon}</InterestIcon>
+                <InterestDot />
                 <InterestText>{interest.text}</InterestText>
               </InterestCard>
             ))}
           </InterestsGrid>
         </TextContent>
 
-        {/* Compact 2×2 stats grid */}
         <StatsGrid
           initial={{ opacity: 0, x: 20 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -247,8 +239,7 @@ export const About = () => (
           transition={{ duration: 0.6, delay: 0.2 }}
         >
           {stats.map((stat) => (
-            <StatCell key={stat.label} $color={stat.color}>
-              {stat.icon}
+            <StatCell key={stat.label}>
               <StatNumber>{stat.number}</StatNumber>
               <StatLabel>{stat.label}</StatLabel>
             </StatCell>

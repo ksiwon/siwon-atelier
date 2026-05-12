@@ -11,16 +11,12 @@ import {
   TechStack,
   Contact,
   Footer,
-  Cursor,
-  ParticleBackground,
 } from './components';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Cursor />
-      <ParticleBackground />
       <Navbar />
       <main>
         <Hero />

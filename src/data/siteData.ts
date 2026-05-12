@@ -2,10 +2,10 @@
 // Edit this file to update bio, roles, contacts, and tech stack across the site.
 
 export const roles = [
-  { title: '2024 KAIST CS President', icon: '🖥️', glitch: true },
-  { title: '2026 KAIST ID Vice President',        icon: '🖌️', glitch: true },
-  { title: 'CTO, FreakIT (AI Education Startup)', icon: '🚀', glitch: true },
-  { title: 'SPARCS FE Developer & Designer',      icon: '⚡', glitch: true },
+  { title: '2024 KAIST CS Student Council President' },
+  { title: '2026 KAIST ID Student Council Vice President' },
+  { title: 'CTO, FreakIT (AI Education Startup)' },
+  { title: 'SPARCS Frontend Developer & Designer' },
 ];
 
 export const aboutDescription =

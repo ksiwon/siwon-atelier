@@ -1,24 +1,28 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Sparkles, Cpu, Users, Briefcase, Star, Zap } from 'lucide-react';
+import { ArrowUpRight, Cpu, Users, Briefcase, Star, Zap } from 'lucide-react';
 import { projects, ProjectCategory } from '../data/projects';
 
 const ProjectsSection = styled.section`
-  padding-top: ${({ theme }) => theme.spacing['5xl']};
-  padding-bottom: ${({ theme }) => theme.spacing['5xl']};
-  padding-left: ${({ theme }) => theme.spacing.xl};
-  padding-right: ${({ theme }) => theme.spacing.xl};
-  overflow: hidden;
+  padding-top: ${({ theme }) => theme.layout.sectionPadY};
+  padding-bottom: ${({ theme }) => theme.layout.sectionPadY};
+  padding-left: ${({ theme }) => theme.layout.sectionPadX};
+  padding-right: ${({ theme }) => theme.layout.sectionPadX};
+
+  @media (max-width: 768px) {
+    padding-top: ${({ theme }) => theme.layout.sectionPadYSm};
+    padding-bottom: ${({ theme }) => theme.layout.sectionPadYSm};
+  }
 
   @media (max-width: 480px) {
-    padding-left: ${({ theme }) => theme.spacing.md};
-    padding-right: ${({ theme }) => theme.spacing.md};
+    padding-left: ${({ theme }) => theme.layout.sectionPadXSm};
+    padding-right: ${({ theme }) => theme.layout.sectionPadXSm};
   }
 `;
 
 const Container = styled.div`
-  max-width: 1080px;
+  max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
 `;
 
@@ -57,22 +61,24 @@ const Tab = styled(motion.button)<{ $active: boolean }>`
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
-  padding-top: ${({ theme }) => theme.spacing.sm};
-  padding-bottom: ${({ theme }) => theme.spacing.sm};
-  padding-left: ${({ theme }) => theme.spacing.lg};
-  padding-right: ${({ theme }) => theme.spacing.lg};
+  padding: ${({ theme }) => theme.spacing.sm} ${({ theme }) => theme.spacing.lg};
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  font-weight: 600;
+  font-weight: 500;
   color: ${({ $active, theme }) => ($active ? theme.colors.primary : theme.colors.textDim)};
-  background: ${({ $active, theme }) => ($active ? `${theme.colors.primary}12` : 'transparent')};
+  background: ${({ $active, theme }) => ($active ? theme.colors.surface : 'transparent')};
   border: 1px solid ${({ $active, theme }) => ($active ? theme.colors.primary : theme.colors.border)};
-  border-radius: ${({ theme }) => theme.borderRadius.full};
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   transition: all ${({ theme }) => theme.transitions.fast};
 
   &:hover {
-    border-color: ${({ theme }) => theme.colors.primary};
-    color: ${({ theme }) => theme.colors.primary};
+    border-color: ${({ theme }) => theme.colors.borderHover};
+    color: ${({ theme }) => theme.colors.textMuted};
+  }
+
+  @media (max-width: 480px) {
+    padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.md};
+    font-size: 0.68rem;
   }
 `;
 
@@ -80,7 +86,8 @@ const ProjectTable = styled(motion.div)`
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
-const ProjectRow = styled(motion.a)<{ $color: string }>`
+/* ── Left bar via box-shadow inset — no absolute positioning issues ── */
+const ProjectRow = styled(motion.a)`
   display: grid;
   grid-template-columns: 2.5rem 1fr auto;
   gap: ${({ theme }) => theme.spacing.lg};
@@ -90,32 +97,24 @@ const ProjectRow = styled(motion.a)<{ $color: string }>`
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
   text-decoration: none;
   cursor: pointer;
-  position: relative;
+  box-shadow: inset 0 0 0 transparent;
+  transition:
+    box-shadow ${({ theme }) => theme.transitions.fast},
+    background ${({ theme }) => theme.transitions.fast};
 
-  &::before {
-    content: '';
-    position: absolute;
-    left: -${({ theme }) => theme.spacing.xl};
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: ${({ $color }) => $color};
-    opacity: 0;
-    transition: opacity ${({ theme }) => theme.transitions.fast};
-    border-radius: 0 2px 2px 0;
-
-    @media (max-width: 480px) {
-      left: -${({ theme }) => theme.spacing.md};
-    }
+  &:hover {
+    box-shadow: inset 3px 0 0 ${({ theme }) => theme.colors.primary};
   }
-
-  &:hover::before { opacity: 1; }
-  &:hover .proj-title { color: ${({ $color }) => $color}; }
+  &:hover .proj-title { color: ${({ theme }) => theme.colors.primary}; }
   &:hover .proj-arrow { opacity: 1; transform: translate(2px, -2px); }
 
   @media (max-width: 640px) {
     grid-template-columns: 1.8rem 1fr auto;
     gap: ${({ theme }) => theme.spacing.md};
+  }
+
+  @media (max-width: 480px) {
+    grid-template-columns: 1fr auto;
   }
 `;
 
@@ -127,6 +126,10 @@ const RowIndex = styled.span`
   text-align: right;
   align-self: flex-start;
   padding-top: 3px;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
 const RowMain = styled.div`
@@ -152,16 +155,20 @@ const ProjectTitle = styled.h3`
   transition: color ${({ theme }) => theme.transitions.fast};
 `;
 
-const CategoryBadge = styled.span<{ $color: string }>`
+const CategoryBadge = styled.span`
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: 0.62rem;
   padding: 2px 8px;
   border-radius: ${({ theme }) => theme.borderRadius.sm};
-  color: ${({ $color }) => $color};
-  border: 1px solid ${({ $color }) => $color}30;
-  background: ${({ $color }) => $color}0e;
+  color: ${({ theme }) => theme.colors.textDim};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: transparent;
   white-space: nowrap;
   flex-shrink: 0;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
 const ProjectDesc = styled.p`
@@ -181,13 +188,17 @@ const TechRow = styled.div`
   display: flex;
   gap: ${({ theme }) => theme.spacing.xs};
   flex-wrap: wrap;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
 const TechPill = styled.span`
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: 0.60rem;
   padding: 1px 6px;
-  border-radius: 4px;
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
   color: ${({ theme }) => theme.colors.textDim};
   background: ${({ theme }) => theme.colors.surface};
   border: 1px solid ${({ theme }) => theme.colors.border};
@@ -203,16 +214,9 @@ const RowArrow = styled.div`
   flex-shrink: 0;
 `;
 
-const catColor: Record<string, string> = {
-  AEL:     '#6366f1',
-  Own:     '#3b82f6',
-  SPARCS:  '#ff6b6b',
-  FreakIT: '#f59e0b',
-};
-
 const catLabel: Record<string, string> = {
   AEL:     'AI Experience Lab',
-  Own:     'Personal Project',
+  Own:     'Personal',
   SPARCS:  'SPARCS',
   FreakIT: 'FreakIT',
 };
@@ -220,12 +224,12 @@ const catLabel: Record<string, string> = {
 type FilterId = ProjectCategory | 'All' | 'Stars';
 
 const categories: { id: FilterId; label: string; icon: JSX.Element }[] = [
-  { id: 'Stars',   label: 'Stars',             icon: <Star size={13} /> },
+  { id: 'Stars',   label: 'Featured',          icon: <Star size={13} /> },
   { id: 'AEL',     label: 'AI Experience Lab',  icon: <Cpu size={13} /> },
   { id: 'SPARCS',  label: 'SPARCS',             icon: <Zap size={13} /> },
   { id: 'FreakIT', label: 'FreakIT',            icon: <Users size={13} /> },
   { id: 'Own',     label: 'Personal',           icon: <Briefcase size={13} /> },
-  { id: 'All',     label: 'All',                icon: <Sparkles size={13} /> },
+  { id: 'All',     label: 'All',                icon: <Briefcase size={13} /> },
 ];
 
 const listVariants = {
@@ -265,7 +269,6 @@ export const Projects = () => {
               key={cat.id}
               $active={activeFilter === cat.id}
               onClick={() => setActiveFilter(cat.id)}
-              whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
             >
               {cat.icon}
@@ -288,7 +291,6 @@ export const Projects = () => {
                 href={proj.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                $color={proj.color || catColor[proj.category]}
                 variants={rowVariants}
               >
                 <RowIndex>{String(i + 1).padStart(2, '0')}</RowIndex>
@@ -296,9 +298,7 @@ export const Projects = () => {
                 <RowMain>
                   <RowTop>
                     <ProjectTitle className="proj-title">{proj.title}</ProjectTitle>
-                    <CategoryBadge $color={proj.color || catColor[proj.category]}>
-                      {catLabel[proj.category]}
-                    </CategoryBadge>
+                    <CategoryBadge>{catLabel[proj.category]}</CategoryBadge>
                   </RowTop>
                   <ProjectDesc>{proj.description}</ProjectDesc>
                   {proj.tech && (

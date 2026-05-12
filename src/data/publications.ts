@@ -33,7 +33,6 @@ export const publications: Publication[] = [
     title: 'Study of Nonlinear Optical Lenz',
     authors: ['JungWon Park', 'Unbi Ryu', 'Wonyup Lee'],
     advisors: [
-      'Jungmi Park (Teacher Advisor, Busan Science High School)',
       'Gwangseok Kim, Ph.D. (Professor, Dept. of Optical Engineering, Pusan National University)',
     ],
     venue: 'KSIC Fall 2020',

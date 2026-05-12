@@ -1,58 +1,36 @@
-# Siwon's Atelier 🎨
+# Siwon's Atelier
 
-UX를 연구하는 프론트엔드 개발자, AI와 인터랙션 디자인을 실험하는 디자이너의 포트폴리오 웹사이트
+Personal academic portfolio of JungWon Park — KAIST, Industrial Design & CS.
 
-## ✨ Features
+## Stack
 
-- 🌙 Deep Dark Mode with Glassmorphism Design
-- ✨ Interactive Particle Background
-- 🖱️ Custom Cursor Effects
-- 🎭 Smooth Framer Motion Animations
-- 📱 Fully Responsive Design
-- 🏷️ Project Filtering by Category
-- 🎨 Tech Stack Infinite Marquee
-- ⚡ Optimized with Vite + React + TypeScript
+React 18 · TypeScript · styled-components · Framer Motion · Vite
 
-## 🚀 Quick Start
+## Quick Start
 
 ```bash
-# Install dependencies
 npm install
-
-# Start development server
 npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build
-npm run preview
 ```
 
-## 🛠️ Tech Stack
+## Customising
 
-- **Framework:** React 18 + TypeScript
-- **Build Tool:** Vite
-- **Styling:** styled-components
-- **Animations:** Framer Motion
-- **Icons:** Lucide React
+All design tokens live in **`src/styles/theme.ts`** — colors, spacing, border-radius, layout width.  
+All content lives in **`src/data/`** — edit `siteData.ts`, `projects.ts`, `publications.ts`, `awards.ts`.
 
-## 📁 Project Structure
+### Background color
 
-```
-src/
-├── components/     # React components
-├── data/          # Project & content data
-├── styles/        # Theme & global styles
-├── hooks/         # Custom React hooks
-└── assets/        # Static assets
+```ts
+// src/styles/theme.ts
+colors: {
+  background:   '#0e1015',  // main canvas
+  surface:      '#161820',  // cards / sections (keep slightly lighter)
+  surfaceHover: '#1b1d27',  // surface on hover
+}
 ```
 
-## 📧 Contact
+### Accent color
 
-- pjo12346@kaist.ac.kr
-- siwon@sparcs.org
-
----
-
-Made with ❤️ at KAIST
+```ts
+  primary: '#6a93d4',  // all highlights — change this one value
+```

@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
-import { Sparkles } from 'lucide-react';
 
 const FooterContainer = styled.footer`
   padding: ${({ theme }) => theme.spacing['2xl']} ${({ theme }) => theme.spacing.xl};
@@ -8,7 +7,7 @@ const FooterContainer = styled.footer`
 `;
 
 const FooterContent = styled.div`
-  max-width: 1400px;
+  max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -17,24 +16,17 @@ const FooterContent = styled.div`
 `;
 
 const Logo = styled(motion.div)`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
   font-family: ${({ theme }) => theme.fonts.heading};
   font-size: ${({ theme }) => theme.fontSizes.lg};
-  font-weight: 800;
-  background: ${({ theme }) => theme.colors.gradient.primary};
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-weight: 700;
+  color: ${({ theme }) => theme.colors.textMuted};
+  letter-spacing: -0.01em;
 `;
 
 const Copyright = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.textDim};
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
+  font-family: ${({ theme }) => theme.fonts.mono};
 `;
 
 const FooterLinks = styled.div`
@@ -44,11 +36,11 @@ const FooterLinks = styled.div`
 
 const FooterLink = styled(motion.a)`
   font-size: ${({ theme }) => theme.fontSizes.sm};
-  color: ${({ theme }) => theme.colors.textMuted};
+  color: ${({ theme }) => theme.colors.textDim};
   transition: color ${({ theme }) => theme.transitions.fast};
 
   &:hover {
-    color: ${({ theme }) => theme.colors.text};
+    color: ${({ theme }) => theme.colors.textMuted};
   }
 `;
 
@@ -58,35 +50,15 @@ export const Footer = () => {
   return (
     <FooterContainer>
       <FooterContent>
-        <Logo>
-          <Sparkles size={18} />
-          Siwon's Atelier
-        </Logo>
+        <Logo>Siwon's Atelier</Logo>
 
         <FooterLinks>
-          <FooterLink
-            href="#hero"
-            whileHover={{ y: -2 }}
-          >
-            Home
-          </FooterLink>
-          <FooterLink
-            href="#projects"
-            whileHover={{ y: -2 }}
-          >
-            Projects
-          </FooterLink>
-          <FooterLink
-            href="#contact"
-            whileHover={{ y: -2 }}
-          >
-            Contact
-          </FooterLink>
+          <FooterLink href="#hero" whileHover={{ y: -2 }}>Home</FooterLink>
+          <FooterLink href="#projects" whileHover={{ y: -2 }}>Projects</FooterLink>
+          <FooterLink href="#contact" whileHover={{ y: -2 }}>Contact</FooterLink>
         </FooterLinks>
 
-        <Copyright>
-          © {currentYear} Siwon. at KAIST
-        </Copyright>
+        <Copyright>© {currentYear} JungWon Park · KAIST</Copyright>
       </FooterContent>
     </FooterContainer>
   );

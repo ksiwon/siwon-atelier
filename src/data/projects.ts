@@ -39,7 +39,7 @@ export const projects: Project[] = [
 
   // FreakIT
   { id: 'dab4n', title: 'DAB4N', description: 'Digital Test Grading Platform', category: 'FreakIT', link: 'https://dab4n.netlify.app', tech: ['Education', 'AI', 'Grading'], featured: true, color: '#f59e0b' },
-  { id: 'socra', title: 'SOCRA', description: 'Creative Cognitive Capability Question Generator (w. Prof. Jae-Seung Jeong)', category: 'FreakIT', link: 'https://socra.netlify.app', tech: ['AI', 'Education', 'Research'], featured: true, star: true, color: '#10b981' },
+  { id: 'socra', title: 'SOCRATEST', description: 'Creative Cognitive Capability Question Generator (w. Prof. Jae-Seung Jeong)', category: 'FreakIT', link: 'https://socratest.freakit.co.kr', tech: ['AI', 'Education', 'Research'], featured: true, star: true, color: '#10b981' },
   { id: 'dab4s', title: 'DAB4S', description: 'Academy Test Grading Platform', category: 'FreakIT', link: 'https://dab4s.netlify.app', tech: ['Education', 'Academy', 'Grading'], color: '#f59e0b' },
   { id: 'd-maker', title: 'D-Maker', description: 'Test Question Auto-Generator & Editor', category: 'FreakIT', link: 'https://dabanmaker.netlify.app', tech: ['AI', 'Education', 'Generator'], color: '#6366f1' },
 ];

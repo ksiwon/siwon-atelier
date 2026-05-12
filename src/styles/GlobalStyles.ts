@@ -21,18 +21,7 @@ export const GlobalStyles = createGlobalStyle`
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-  }
-
-  body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: ${({ theme }) => theme.colors.gradient.mesh};
-    pointer-events: none;
-    z-index: 0;
+    /* No gradient mesh — flat solid background */
   }
 
   #root {
@@ -66,7 +55,7 @@ export const GlobalStyles = createGlobalStyle`
 
   ::selection {
     background: ${({ theme }) => theme.colors.primary};
-    color: white;
+    color: #111;
   }
 
   ::-webkit-scrollbar {
@@ -85,30 +74,6 @@ export const GlobalStyles = createGlobalStyle`
 
   ::-webkit-scrollbar-thumb:hover {
     background: ${({ theme }) => theme.colors.textMuted};
-  }
-
-  @keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-  }
-
-  @keyframes pulse-glow {
-    0%, 100% {
-      box-shadow: 0 0 20px rgba(91, 138, 247, 0.2);
-    }
-    50% {
-      box-shadow: 0 0 40px rgba(91, 138, 247, 0.4), 0 0 60px rgba(124, 110, 245, 0.2);
-    }
-  }
-
-  @keyframes shimmer {
-    0% { background-position: -200% 0; }
-    100% { background-position: 200% 0; }
-  }
-
-  @keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
   }
 
   @keyframes fadeInUp {

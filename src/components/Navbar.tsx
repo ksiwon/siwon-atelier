@@ -30,7 +30,7 @@ const Nav = styled(motion.nav)<{ $scrolled: boolean }>`
 `;
 
 const NavContainer = styled.div`
-  max-width: 1080px;
+  max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
   display: flex;
   align-items: center;

@@ -5,20 +5,24 @@ import { ChevronDown, ExternalLink, Trophy } from 'lucide-react';
 import { awards } from '../data/awards';
 
 const AwardsSection = styled.section`
-  padding-top: ${({ theme }) => theme.spacing['5xl']};
-  padding-bottom: ${({ theme }) => theme.spacing['5xl']};
-  padding-left: ${({ theme }) => theme.spacing.xl};
-  padding-right: ${({ theme }) => theme.spacing.xl};
-  position: relative;
+  padding-top: ${({ theme }) => theme.layout.sectionPadY};
+  padding-bottom: ${({ theme }) => theme.layout.sectionPadY};
+  padding-left: ${({ theme }) => theme.layout.sectionPadX};
+  padding-right: ${({ theme }) => theme.layout.sectionPadX};
+
+  @media (max-width: 768px) {
+    padding-top: ${({ theme }) => theme.layout.sectionPadYSm};
+    padding-bottom: ${({ theme }) => theme.layout.sectionPadYSm};
+  }
 
   @media (max-width: 480px) {
-    padding-left: ${({ theme }) => theme.spacing.md};
-    padding-right: ${({ theme }) => theme.spacing.md};
+    padding-left: ${({ theme }) => theme.layout.sectionPadXSm};
+    padding-right: ${({ theme }) => theme.layout.sectionPadXSm};
   }
 `;
 
 const Container = styled.div`
-  max-width: 1080px;
+  max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
 `;
 
@@ -52,25 +56,11 @@ const AwardsList = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
-const AwardStrip = styled(motion.div)<{ $accentColor: string; $isOpen: boolean }>`
-  position: relative;
+const AwardStrip = styled(motion.div)<{ $isOpen: boolean }>`
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  overflow: hidden;
   cursor: default;
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      ellipse at 0% 50%,
-      ${({ $accentColor }) => $accentColor}10 0%,
-      transparent 65%
-    );
-    opacity: ${({ $isOpen }) => ($isOpen ? 1 : 0)};
-    transition: opacity 0.4s ease;
-    pointer-events: none;
-  }
+  transition: background ${({ theme }) => theme.transitions.fast};
+  background: ${({ $isOpen, theme }) => ($isOpen ? theme.colors.surface : 'transparent')};
 `;
 
 const StripHeader = styled.div`
@@ -79,47 +69,62 @@ const StripHeader = styled.div`
   gap: ${({ theme }) => theme.spacing.xl};
   padding-top: ${({ theme }) => theme.spacing.xl};
   padding-bottom: ${({ theme }) => theme.spacing.xl};
-  position: relative;
-  z-index: 2;
+
+  @media (max-width: 600px) {
+    gap: ${({ theme }) => theme.spacing.md};
+    padding-top: ${({ theme }) => theme.spacing.lg};
+    padding-bottom: ${({ theme }) => theme.spacing.lg};
+  }
 `;
 
-const IndexLabel = styled.span<{ $color: string; $isOpen: boolean }>`
+const IndexLabel = styled.span<{ $isOpen: boolean }>`
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  color: ${({ $isOpen, $color }) => ($isOpen ? $color : 'rgba(255,255,255,0.18)')};
+  color: ${({ $isOpen, theme }) => ($isOpen ? theme.colors.primary : theme.colors.textDim)};
   letter-spacing: 0.15em;
   width: 28px;
   flex-shrink: 0;
-  transition: color 0.4s ease;
+  transition: color ${({ theme }) => theme.transitions.normal};
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
-const AwardBigName = styled.h3<{ $color: string; $isOpen: boolean }>`
+const AwardBigName = styled.h3<{ $isOpen: boolean }>`
   font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: clamp(1.2rem, 2vw, 1.9rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1;
+  font-size: clamp(1.1rem, 2vw, 1.9rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
   flex: 1;
   min-width: 0;
-  color: ${({ $isOpen, $color, theme }) => ($isOpen ? $color : theme.colors.text)};
-  transition: color 0.35s ease;
+  color: ${({ $isOpen, theme }) => ($isOpen ? theme.colors.text : theme.colors.textMuted)};
+  transition: color ${({ theme }) => theme.transitions.normal};
 `;
 
-const YearChip = styled.span<{ $color: string; $isOpen: boolean }>`
+const YearChip = styled.span<{ $isOpen: boolean }>`
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  padding: 4px 12px;
-  border-radius: 999px;
-  border: 1px solid ${({ $isOpen, $color }) => ($isOpen ? $color : 'rgba(255,255,255,0.12)')};
-  color: ${({ $isOpen, $color }) => ($isOpen ? $color : 'rgba(255,255,255,0.28)')};
-  background: ${({ $isOpen, $color }) => ($isOpen ? `${$color}15` : 'transparent')};
-  transition: all 0.35s ease;
+  padding: 3px 10px;
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
+  border: 1px solid ${({ $isOpen, theme }) =>
+    $isOpen ? theme.colors.primary : theme.colors.border};
+  color: ${({ $isOpen, theme }) =>
+    $isOpen ? theme.colors.primary : theme.colors.textDim};
+  background: transparent;
+  transition: all ${({ theme }) => theme.transitions.normal};
   flex-shrink: 0;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
 `;
 
-const ChevronWrap = styled(motion.div)<{ $color: string; $isOpen: boolean }>`
-  color: ${({ $isOpen, $color }) => ($isOpen ? $color : 'rgba(255,255,255,0.22)')};
-  transition: color 0.35s ease;
+const ChevronWrap = styled(motion.div)<{ $isOpen: boolean }>`
+  color: ${({ $isOpen, theme }) =>
+    $isOpen ? theme.colors.primary : theme.colors.textDim};
+  transition: color ${({ theme }) => theme.transitions.normal};
   display: flex;
   align-items: center;
   flex-shrink: 0;
@@ -133,8 +138,6 @@ const ExpandInner = styled.div`
   gap: ${({ theme }) => theme.spacing.xl};
   padding-bottom: ${({ theme }) => theme.spacing['2xl']};
   padding-left: calc(28px + ${({ theme }) => theme.spacing.xl});
-  position: relative;
-  z-index: 2;
 
   @media (max-width: 600px) {
     grid-template-columns: 1fr;
@@ -142,12 +145,12 @@ const ExpandInner = styled.div`
   }
 `;
 
-const ImageBox = styled.div<{ $accentColor: string }>`
+const ImageBox = styled.div`
   width: 150px;
   height: 150px;
-  border-radius: 10px;
-  border: 1px solid ${({ $accentColor }) => $accentColor}30;
-  background: ${({ $accentColor }) => $accentColor}0a;
+  border-radius: ${({ theme }) => theme.borderRadius.md};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  background: ${({ theme }) => theme.colors.surface};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -156,7 +159,7 @@ const ImageBox = styled.div<{ $accentColor: string }>`
 
   @media (max-width: 600px) {
     width: 100%;
-    height: 90px;
+    height: 100px;
   }
 `;
 
@@ -199,17 +202,14 @@ const TagRow = styled.div`
   gap: ${({ theme }) => theme.spacing.sm};
 `;
 
-const Tag = styled.span<{ $color: string }>`
-  padding-top: ${({ theme }) => theme.spacing.xs};
-  padding-bottom: ${({ theme }) => theme.spacing.xs};
-  padding-left: ${({ theme }) => theme.spacing.md};
-  padding-right: ${({ theme }) => theme.spacing.md};
+const Tag = styled.span`
+  padding: ${({ theme }) => theme.spacing.xs} ${({ theme }) => theme.spacing.md};
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: ${({ theme }) => theme.fontSizes.xs};
-  color: ${({ $color }) => $color};
-  background: ${({ $color }) => $color}10;
-  border-radius: ${({ theme }) => theme.borderRadius.full};
-  border: 1px solid ${({ $color }) => $color}25;
+  color: ${({ theme }) => theme.colors.textDim};
+  background: transparent;
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
+  border: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
 const LinkRow = styled.a`
@@ -220,9 +220,9 @@ const LinkRow = styled.a`
   font-size: ${({ theme }) => theme.fontSizes.xs};
   color: ${({ theme }) => theme.colors.textDim};
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color ${({ theme }) => theme.transitions.fast};
   width: fit-content;
-  &:hover { color: ${({ theme }) => theme.colors.text}; }
+  &:hover { color: ${({ theme }) => theme.colors.primary}; }
 `;
 
 export const Awards = () => {
@@ -247,7 +247,6 @@ export const Awards = () => {
             return (
               <AwardStrip
                 key={award.id}
-                $accentColor={award.accentColor}
                 $isOpen={isOpen}
                 initial={{ opacity: 0, y: 14 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -257,17 +256,10 @@ export const Awards = () => {
                 onMouseLeave={() => setOpenId(null)}
               >
                 <StripHeader>
-                  <IndexLabel $color={award.accentColor} $isOpen={isOpen}>
-                    {award.index}
-                  </IndexLabel>
-                  <AwardBigName $color={award.accentColor} $isOpen={isOpen}>
-                    {award.name}
-                  </AwardBigName>
-                  <YearChip $color={award.accentColor} $isOpen={isOpen}>
-                    {award.year}
-                  </YearChip>
+                  <IndexLabel $isOpen={isOpen}>{award.index}</IndexLabel>
+                  <AwardBigName $isOpen={isOpen}>{award.name}</AwardBigName>
+                  <YearChip $isOpen={isOpen}>{award.year}</YearChip>
                   <ChevronWrap
-                    $color={award.accentColor}
                     $isOpen={isOpen}
                     animate={{ rotate: isOpen ? 180 : 0 }}
                     transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
@@ -283,10 +275,10 @@ export const Awards = () => {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+                      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
                     >
                       <ExpandInner>
-                        <ImageBox $accentColor={award.accentColor}>
+                        <ImageBox>
                           <AwardImage src={award.image} alt={award.name} />
                         </ImageBox>
                         <BodyContent>
@@ -295,7 +287,7 @@ export const Awards = () => {
                           <AwardDescription>{award.description}</AwardDescription>
                           <TagRow>
                             {award.tags.map((tag) => (
-                              <Tag key={tag} $color={award.accentColor}>{tag}</Tag>
+                              <Tag key={tag}>{tag}</Tag>
                             ))}
                           </TagRow>
                           <LinkRow href={award.link} target="_blank" rel="noopener noreferrer">

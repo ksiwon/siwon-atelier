@@ -1,22 +1,28 @@
+import { useState } from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import { ExternalLink, BookOpen, Star } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ExternalLink, BookOpen, Star, ChevronDown } from 'lucide-react';
 import { publications, type Publication } from '../data/publications';
 
 const PublicationsSection = styled.section`
-  padding-top: ${({ theme }) => theme.spacing['5xl']};
-  padding-bottom: ${({ theme }) => theme.spacing['5xl']};
-  padding-left: ${({ theme }) => theme.spacing.xl};
-  padding-right: ${({ theme }) => theme.spacing.xl};
+  padding-top: ${({ theme }) => theme.layout.sectionPadY};
+  padding-bottom: ${({ theme }) => theme.layout.sectionPadY};
+  padding-left: ${({ theme }) => theme.layout.sectionPadX};
+  padding-right: ${({ theme }) => theme.layout.sectionPadX};
+
+  @media (max-width: 768px) {
+    padding-top: ${({ theme }) => theme.layout.sectionPadYSm};
+    padding-bottom: ${({ theme }) => theme.layout.sectionPadYSm};
+  }
 
   @media (max-width: 480px) {
-    padding-left: ${({ theme }) => theme.spacing.md};
-    padding-right: ${({ theme }) => theme.spacing.md};
+    padding-left: ${({ theme }) => theme.layout.sectionPadXSm};
+    padding-right: ${({ theme }) => theme.layout.sectionPadXSm};
   }
 `;
 
 const Container = styled.div`
-  max-width: 1080px;
+  max-width: ${({ theme }) => theme.layout.maxWidth};
   margin: 0 auto;
 `;
 
@@ -50,28 +56,52 @@ const SectionNote = styled.p`
   color: ${({ theme }) => theme.colors.textDim};
 `;
 
+/* ── Accordion list ── */
 const PaperList = styled.div`
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
-const PaperItem = styled(motion.article)`
-  padding-top: ${({ theme }) => theme.spacing['2xl']};
-  padding-bottom: ${({ theme }) => theme.spacing['2xl']};
+const PubStrip = styled(motion.article)<{ $isOpen: boolean }>`
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: ${({ theme }) => theme.spacing.xl};
-  align-items: start;
+  transition: background ${({ theme }) => theme.transitions.fast};
+  background: ${({ $isOpen, theme }) => ($isOpen ? theme.colors.surface : 'transparent')};
+`;
 
-  @media (max-width: 640px) {
-    grid-template-columns: 1fr;
+const StripHeader = styled.div`
+  display: flex;
+  align-items: center;
+  gap: ${({ theme }) => theme.spacing.lg};
+  padding-top: ${({ theme }) => theme.spacing.xl};
+  padding-bottom: ${({ theme }) => theme.spacing.xl};
+  cursor: default;
+
+  @media (max-width: 600px) {
+    gap: ${({ theme }) => theme.spacing.md};
+    padding-top: ${({ theme }) => theme.spacing.lg};
+    padding-bottom: ${({ theme }) => theme.spacing.lg};
   }
 `;
 
-const PaperMain = styled.div`
+const IndexLabel = styled.span<{ $isOpen: boolean }>`
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  color: ${({ $isOpen, theme }) => ($isOpen ? theme.colors.primary : theme.colors.textDim)};
+  letter-spacing: 0.15em;
+  width: 28px;
+  flex-shrink: 0;
+  transition: color ${({ theme }) => theme.transitions.normal};
+
+  @media (max-width: 600px) {
+    display: none;
+  }
+`;
+
+const PaperHeaderMain = styled.div`
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: ${({ theme }) => theme.spacing.sm};
+  gap: 6px;
 `;
 
 const VenueRow = styled.div`
@@ -81,24 +111,17 @@ const VenueRow = styled.div`
   flex-wrap: wrap;
 `;
 
-const VenueBadge = styled.span<{ $type: string }>`
+const VenueBadge = styled.span`
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: 0.68rem;
-  font-weight: 600;
-  padding: 3px 10px;
+  font-weight: 500;
+  padding: 2px 8px;
   border-radius: ${({ theme }) => theme.borderRadius.sm};
-  background: ${({ $type, theme }) =>
-    $type === 'conference' ? `${theme.colors.primary}15` :
-    $type === 'journal' ? 'rgba(56,201,180,0.12)' :
-    'rgba(124,110,245,0.12)'};
-  color: ${({ $type, theme }) =>
-    $type === 'conference' ? theme.colors.primary :
-    $type === 'journal' ? '#38c9b4' : '#9b8ff5'};
-  border: 1px solid ${({ $type, theme }) =>
-    $type === 'conference' ? `${theme.colors.primary}25` :
-    $type === 'journal' ? 'rgba(56,201,180,0.22)' :
-    'rgba(124,110,245,0.22)'};
+  background: transparent;
+  color: ${({ theme }) => theme.colors.primary};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   letter-spacing: 0.04em;
+  white-space: nowrap;
 `;
 
 const AwardBadge = styled.span`
@@ -107,41 +130,75 @@ const AwardBadge = styled.span`
   gap: 4px;
   font-family: ${({ theme }) => theme.fonts.mono};
   font-size: 0.65rem;
-  padding: 3px 8px;
+  padding: 2px 8px;
   border-radius: ${({ theme }) => theme.borderRadius.sm};
-  background: rgba(232, 200, 64, 0.10);
-  color: #e8c840;
-  border: 1px solid rgba(232, 200, 64, 0.22);
+  background: transparent;
+  color: ${({ theme }) => theme.colors.textMuted};
+  border: 1px solid ${({ theme }) => theme.colors.border};
+  white-space: nowrap;
 `;
 
-const PaperTitle = styled.h3`
+const PaperTitle = styled.h3<{ $isOpen: boolean }>`
   font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: ${({ theme }) => theme.fontSizes.lg};
+  font-size: clamp(1rem, 1.5vw + 0.4rem, 1.35rem);
   font-weight: 700;
-  color: ${({ theme }) => theme.colors.text};
-  line-height: 1.35;
   letter-spacing: -0.01em;
+  line-height: 1.3;
+  color: ${({ $isOpen, theme }) => ($isOpen ? theme.colors.text : theme.colors.textMuted)};
+  transition: color ${({ theme }) => theme.transitions.normal};
+`;
 
-  a {
-    color: inherit;
-    text-decoration: none;
-    transition: color ${({ theme }) => theme.transitions.fast};
-    &:hover { color: ${({ theme }) => theme.colors.primary}; }
+const YearChip = styled.span<{ $isOpen: boolean }>`
+  font-family: ${({ theme }) => theme.fonts.mono};
+  font-size: ${({ theme }) => theme.fontSizes.xs};
+  padding: 3px 10px;
+  border-radius: ${({ theme }) => theme.borderRadius.sm};
+  border: 1px solid ${({ $isOpen, theme }) =>
+    $isOpen ? theme.colors.primary : theme.colors.border};
+  color: ${({ $isOpen, theme }) =>
+    $isOpen ? theme.colors.primary : theme.colors.textDim};
+  background: transparent;
+  transition: all ${({ theme }) => theme.transitions.normal};
+  flex-shrink: 0;
+  white-space: nowrap;
+
+  @media (max-width: 480px) {
+    display: none;
+  }
+`;
+
+const ChevronWrap = styled(motion.div)<{ $isOpen: boolean }>`
+  color: ${({ $isOpen, theme }) =>
+    $isOpen ? theme.colors.primary : theme.colors.textDim};
+  transition: color ${({ theme }) => theme.transitions.normal};
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+`;
+
+/* ── Expand body ── */
+const ExpandBody = styled(motion.div)`overflow: hidden;`;
+
+const ExpandInner = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${({ theme }) => theme.spacing.md};
+  padding-bottom: ${({ theme }) => theme.spacing['2xl']};
+  padding-left: calc(28px + ${({ theme }) => theme.spacing.xl});
+
+  @media (max-width: 600px) {
+    padding-left: 0;
   }
 `;
 
 const Authors = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
   color: ${({ theme }) => theme.colors.textMuted};
-  line-height: 1.5;
-  strong { color: ${({ theme }) => theme.colors.text}; font-weight: 600; }
-`;
-
-/* Advisor line — smaller, dimmer */
-const Advisors = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
+  line-height: 1.6;
+  strong {
+    color: ${({ theme }) => theme.colors.text};
+    font-weight: 600;
+  }
 `;
 
 const AdvisorLine = styled.p`
@@ -149,10 +206,8 @@ const AdvisorLine = styled.p`
   font-family: ${({ theme }) => theme.fonts.mono};
   color: ${({ theme }) => theme.colors.textDim};
   line-height: 1.6;
-
   &::before {
     content: 'Advised by ';
-    color: ${({ theme }) => theme.colors.textDim};
   }
 `;
 
@@ -165,8 +220,10 @@ const VenueFullName = styled.p`
 
 const Tldr = styled.p`
   font-size: ${({ theme }) => theme.fontSizes.sm};
-  color: ${({ theme }) => theme.colors.textDim};
-  line-height: 1.7;
+  color: ${({ theme }) => theme.colors.textMuted};
+  line-height: 1.8;
+  border-left: 2px solid ${({ theme }) => theme.colors.border};
+  padding-left: ${({ theme }) => theme.spacing.md};
 `;
 
 const TagsRow = styled.div`
@@ -187,16 +244,9 @@ const Tag = styled.span`
 
 const PaperLinks = styled.div`
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-wrap: wrap;
   gap: ${({ theme }) => theme.spacing.sm};
-  flex-shrink: 0;
-  min-width: 80px;
-
-  @media (max-width: 640px) {
-    flex-direction: row;
-    align-items: flex-start;
-  }
+  padding-top: ${({ theme }) => theme.spacing.xs};
 `;
 
 const PaperLink = styled.a`
@@ -215,7 +265,6 @@ const PaperLink = styled.a`
   &:hover {
     color: ${({ theme }) => theme.colors.primary};
     border-color: ${({ theme }) => theme.colors.primary};
-    background: ${({ theme }) => theme.colors.surface};
   }
 `;
 
@@ -226,7 +275,6 @@ const NoLinkNote = styled.span`
   padding: 5px 10px;
   border: 1px dashed ${({ theme }) => theme.colors.border};
   border-radius: ${({ theme }) => theme.borderRadius.sm};
-  white-space: nowrap;
 `;
 
 const SELF = 'JungWon Park';
@@ -239,88 +287,118 @@ const renderAuthors = (authors: string[]) =>
     </span>
   ));
 
-const PaperCard = ({ pub, index }: { pub: Publication; index: number }) => {
+interface PaperCardProps {
+  pub: Publication;
+  index: number;
+  isOpen: boolean;
+  onOpen: () => void;
+  onClose: () => void;
+}
+
+const PaperCard = ({ pub, index, isOpen, onOpen, onClose }: PaperCardProps) => {
   const hasLinks = pub.links && Object.values(pub.links).some(Boolean);
 
   return (
-    <PaperItem
-      initial={{ opacity: 0, y: 18 }}
+    <PubStrip
+      $isOpen={isOpen}
+      initial={{ opacity: 0, y: 14 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.07 }}
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      onMouseEnter={onOpen}
+      onMouseLeave={onClose}
     >
-      <PaperMain>
-        <VenueRow>
-          <VenueBadge $type={pub.type}>{pub.venue}</VenueBadge>
-          {pub.award && (
-            <AwardBadge>
-              <Star size={9} fill="currentColor" />
-              {pub.award}
-            </AwardBadge>
-          )}
-        </VenueRow>
+      <StripHeader>
+        <IndexLabel $isOpen={isOpen}>
+          {String(index + 1).padStart(2, '0')}
+        </IndexLabel>
 
-        <PaperTitle>
-          {pub.links?.paper ? (
-            <a href={pub.links.paper} target="_blank" rel="noopener noreferrer">
-              {pub.title}
-            </a>
-          ) : (
-            pub.title
-          )}
-        </PaperTitle>
-
-        {pub.venueFullName && <VenueFullName>{pub.venueFullName}</VenueFullName>}
-
-        <Authors>{renderAuthors(pub.authors)}</Authors>
-
-        {pub.advisors && (
-          <Advisors>
-            {pub.advisors.map((adv) => (
-              <AdvisorLine key={adv}>{adv}</AdvisorLine>
-            ))}
-          </Advisors>
-        )}
-
-        {pub.tldr && <Tldr>{pub.tldr}</Tldr>}
-
-        {pub.tags && (
-          <TagsRow>
-            {pub.tags.map((t) => (
-              <Tag key={t}>{t}</Tag>
-            ))}
-          </TagsRow>
-        )}
-      </PaperMain>
-
-      <PaperLinks>
-        {hasLinks ? (
-          <>
-            {pub.links?.paper && (
-              <PaperLink href={pub.links.paper} target="_blank" rel="noopener noreferrer">
-                <ExternalLink size={11} /> paper
-              </PaperLink>
+        <PaperHeaderMain>
+          <VenueRow>
+            <VenueBadge>{pub.venue}</VenueBadge>
+            {pub.award && (
+              <AwardBadge>
+                <Star size={9} fill="currentColor" />
+                {pub.award}
+              </AwardBadge>
             )}
-            {pub.links?.project && (
-              <PaperLink href={pub.links.project} target="_blank" rel="noopener noreferrer">
-                <ExternalLink size={11} /> project
-              </PaperLink>
-            )}
-            {pub.links?.code && (
-              <PaperLink href={pub.links.code} target="_blank" rel="noopener noreferrer">
-                <ExternalLink size={11} /> code
-              </PaperLink>
-            )}
-          </>
-        ) : (
-          <NoLinkNote>link TBD</NoLinkNote>
+          </VenueRow>
+          <PaperTitle $isOpen={isOpen}>{pub.title}</PaperTitle>
+        </PaperHeaderMain>
+
+        <YearChip $isOpen={isOpen}>{pub.year}</YearChip>
+
+        <ChevronWrap
+          $isOpen={isOpen}
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <ChevronDown size={16} />
+        </ChevronWrap>
+      </StripHeader>
+
+      <AnimatePresence initial={false}>
+        {isOpen && (
+          <ExpandBody
+            key="body"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <ExpandInner>
+              <Authors>{renderAuthors(pub.authors)}</Authors>
+
+              {pub.advisors && pub.advisors.map((adv) => (
+                <AdvisorLine key={adv}>{adv}</AdvisorLine>
+              ))}
+
+              {pub.venueFullName && (
+                <VenueFullName>{pub.venueFullName}</VenueFullName>
+              )}
+
+              {pub.tldr && <Tldr>{pub.tldr}</Tldr>}
+
+              {pub.tags && (
+                <TagsRow>
+                  {pub.tags.map((t) => <Tag key={t}>{t}</Tag>)}
+                </TagsRow>
+              )}
+
+              <PaperLinks>
+                {hasLinks ? (
+                  <>
+                    {pub.links?.paper && (
+                      <PaperLink href={pub.links.paper} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink size={11} /> paper
+                      </PaperLink>
+                    )}
+                    {pub.links?.project && (
+                      <PaperLink href={pub.links.project} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink size={11} /> project
+                      </PaperLink>
+                    )}
+                    {pub.links?.code && (
+                      <PaperLink href={pub.links.code} target="_blank" rel="noopener noreferrer">
+                        <ExternalLink size={11} /> code
+                      </PaperLink>
+                    )}
+                  </>
+                ) : (
+                  <NoLinkNote>link TBD</NoLinkNote>
+                )}
+              </PaperLinks>
+            </ExpandInner>
+          </ExpandBody>
         )}
-      </PaperLinks>
-    </PaperItem>
+      </AnimatePresence>
+    </PubStrip>
   );
 };
 
 export const Publications = () => {
+  const [openId, setOpenId] = useState<string | null>(null);
+
   const sorted = [
     ...publications.filter((p) => p.featured),
     ...publications.filter((p) => !p.featured),
@@ -345,7 +423,14 @@ export const Publications = () => {
 
         <PaperList>
           {sorted.map((pub, i) => (
-            <PaperCard key={pub.id} pub={pub} index={i} />
+            <PaperCard
+              key={pub.id}
+              pub={pub}
+              index={i}
+              isOpen={openId === pub.id}
+              onOpen={() => setOpenId(pub.id)}
+              onClose={() => setOpenId(null)}
+            />
           ))}
         </PaperList>
       </Container>
