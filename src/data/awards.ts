@@ -17,8 +17,22 @@ export interface Award {
 
 export const awards: Award[] = [
   {
-    id: 'if-2026',
+    id: 'reddot-2026',
     index: '01',
+    name: 'Red Dot Award 2026',
+    year: '2026',
+    org: 'Red Dot GmbH & Co. KG',
+    project: 'STAT — AI Agent for the Medical Golden Hour',
+    description:
+      "STAT is an AI Agent system that closes the golden hour gap by transforming untrained bystanders into confident first responders. It analyzes the patient in real time and delivers step-by-step multimodal guidance, while simultaneously streaming live situation data to incoming paramedics, ensuring precise medical action from the moment of incident to professional handover.",
+    tags: ['AI Agent', 'Emergency Response', 'Multimodal', 'UX/UI'],
+    accentColor: '#ff2d2d',
+    image: '/stat.png',
+    link: 'https://www.red-dot.org/',
+  },
+  {
+    id: 'if-2026',
+    index: '02',
     name: 'iF Design Award 2026',
     year: '2026',
     org: 'iF International Forum Design GmbH',
@@ -32,7 +46,7 @@ export const awards: Award[] = [
   },
   {
     id: 'ipesk-2025',
-    index: '02',
+    index: '03',
     name: 'IPESK Next-Generation Engineer',
     year: '2025',
     org: 'Institute for Promotion of Engineering and Science of Korea (IPESK)',
@@ -46,7 +60,7 @@ export const awards: Award[] = [
   },
   {
     id: 'humantech-2021',
-    index: '03',
+    index: '04',
     name: 'Samsung Humantech Paper Award 2021',
     year: '2021',
     org: 'Samsung Electronics',
