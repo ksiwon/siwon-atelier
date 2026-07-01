@@ -174,8 +174,8 @@ const interests = [
 
 const stats = [
   { number: '20+', label: 'Projects\nDelivered' },
-  { number: '4+',  label: 'Research\nProjects' },
-  { number: '1+',  label: 'Publications' },
+  { number: '4',   label: 'Major\nAwards' },
+  { number: '2+',  label: 'Publications' },
   { number: '2',   label: 'Leadership\nRoles' },
 ];
 
