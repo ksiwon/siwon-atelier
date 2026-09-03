@@ -22,7 +22,7 @@ export const projects: Project[] = [
   { id: 'choreobot', title: 'ChoreoBot', description: 'Choreography Creation Support Chatbot', category: 'AEL', tech: ['AI', 'Dance', 'Generative'], color: '#ec4899' },
 
   // Game
-  { id: 'pokemon-aegis', title: 'Pokemon Aegis', description: 'Tower Defense with all 1025 Pokémon — story, real-time PvP, and card auto-battler', category: 'Game', link: 'https://pokemon-td.freakit.co.kr', tech: ['React', 'TypeScript', 'Konva', 'Firebase'], featured: true, star: true, color: '#eab308' },
+  { id: 'pokemon-aegis', title: 'Pokemon Aegis', description: 'Tower Defense with all 1025 Pokémon — story, real-time PvP, and card auto-battler', category: 'Game', link: 'https://aegis.siwon.it.kr', tech: ['React', 'TypeScript', 'Konva', 'Firebase'], featured: true, star: true, color: '#eab308' },
   { id: 'radiant-platinum', title: 'Radiant Platinum', description: 'Pokémon Platinum rebuilt as a 3D game in the browser (BYOR, not an emulator)', category: 'Game', link: 'https://radiant.siwon.it.kr', tech: ['three.js', 'React', '@pkmn/sim', 'WebGL'], featured: true, star: true, color: '#a78bfa' },
   { id: 'pokerhythm', title: 'Pokerhythm', description: 'Rhythm game charted from 557 real DS Pokémon SSEQ sequences, synthesized in-browser', category: 'Game', link: 'https://pokerhythm.siwon.it.kr', tech: ['Preact', 'Web Audio', 'Firestore'], featured: true, star: true, color: '#f472b6' },
 
