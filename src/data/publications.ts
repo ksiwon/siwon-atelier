@@ -2,7 +2,7 @@
 // Edit this file to add / update publications. Changes reflect automatically.
 // "JungWon Park" in the authors array will be bolded.
 
-export type PublicationType = 'conference' | 'journal' | 'workshop' | 'preprint';
+export type PublicationType = 'conference' | 'journal' | 'workshop' | 'preprint' | 'report';
 
 export interface PublicationLink {
   paper?: string;
@@ -40,10 +40,10 @@ export const publications: Publication[] = [
     venueFullName:
       'KAIST Undergraduate Research Participation (URP) Program — Individual Research Project Final Report',
     year: 2026,
-    type: 'preprint',
+    type: 'report',
     featured: true,
     links: {
-      // paper: under review — link TBD
+      // paper: URP 최종보고서 — 공개 링킬 없음
     },
     tldr:
       'Through ten in-depth interviews with rural older adults, we found their digital barriers stem less ' +

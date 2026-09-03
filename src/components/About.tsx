@@ -170,10 +170,12 @@ const interests = [
   { text: 'AI Design' },
   { text: 'Voice Interaction' },
   { text: 'Generative AI' },
+  { text: 'Document AI' },
+  { text: 'Game Development' },
 ];
 
 const stats = [
-  { number: '20+', label: 'Projects\nDelivered' },
+  { number: '25+', label: 'Projects\nDelivered' },
   { number: '4',   label: 'Major\nAwards' },
   { number: '2+',  label: 'Publications' },
   { number: '2',   label: 'Leadership\nRoles' },
@@ -206,7 +208,9 @@ export const About = () => (
           </AboutText>
           <AboutText>
             As a researcher at <Emphasis>AI Experience Lab</Emphasis>, I design and study
-            AI-powered medical services. I lead engineering as{' '}
+            AI-powered medical services, and build{' '}
+            <Emphasis>document-AI pipelines</Emphasis> that pull verifiable emissions data
+            out of corporate sustainability reports. I lead engineering as{' '}
             <Emphasis>CTO of FreakIT</Emphasis>, an AI education startup, and contribute
             to open-source infrastructure at <Emphasis>SPARCS</Emphasis>.
           </AboutText>

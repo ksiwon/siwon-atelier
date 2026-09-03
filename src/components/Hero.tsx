@@ -62,6 +62,7 @@ const ProfileImage = styled.img`
   height: auto;
   display: block;
   border-radius: ${({ theme }) => theme.borderRadius.md};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   filter: grayscale(15%);
 `;
 
@@ -245,7 +246,7 @@ const ScrollIndicator = styled(motion.button)`
   @media (max-width: 480px) { display: none; }
 `;
 
-const researchInterests = ['HCI', 'AI Design', 'Voice Interaction', 'Generative AI', 'Medical AI', 'UX Research'];
+const researchInterests = ['HCI', 'AI Design', 'Voice Interaction', 'Generative AI', 'Medical AI', 'Document AI', 'Game Development', 'UX Research'];
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -269,7 +270,7 @@ export const Hero = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
         >
-          <ProfileImage src="/id_photo_nobg.png" alt="JungWon Park" />
+          <ProfileImage src="/jw_startup.png" alt="JungWon Park" />
           <AffiliationBadge>KAIST · Class of 2022</AffiliationBadge>
           <QuickLinks>
             <QuickLink

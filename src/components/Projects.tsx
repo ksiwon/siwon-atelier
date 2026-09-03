@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowUpRight, Cpu, Users, Briefcase, Star, Zap } from 'lucide-react';
-import { projects, ProjectCategory } from '../data/projects';
+import { ArrowUpRight, Cpu, Users, Briefcase, Star, Zap, Gamepad2 } from 'lucide-react';
+import { projects } from '../data/projects';
+import type { ProjectCategory } from '../data/projects';
 
 const ProjectsSection = styled.section`
   padding-top: ${({ theme }) => theme.layout.sectionPadY};
@@ -87,7 +88,7 @@ const ProjectTable = styled(motion.div)`
 `;
 
 /* ── Left bar via box-shadow inset — no absolute positioning issues ── */
-const ProjectRow = styled(motion.a)`
+const rowStyles = css`
   display: grid;
   grid-template-columns: 2.5rem 1fr auto;
   gap: ${({ theme }) => theme.spacing.lg};
@@ -116,6 +117,21 @@ const ProjectRow = styled(motion.a)`
   @media (max-width: 480px) {
     grid-template-columns: 1fr auto;
   }
+`;
+
+const ProjectRow = styled(motion.a)`
+  ${rowStyles}
+`;
+
+/* Retired deployment: same layout, no navigation affordance. */
+const ProjectRowStatic = styled(motion.div)`
+  ${rowStyles}
+  cursor: default;
+
+  &:hover {
+    box-shadow: inset 0 0 0 transparent;
+  }
+  &:hover .proj-title { color: ${({ theme }) => theme.colors.text}; }
 `;
 
 const RowIndex = styled.span`
@@ -216,6 +232,7 @@ const RowArrow = styled.div`
 
 const catLabel: Record<string, string> = {
   AEL:     'AI Experience Lab',
+  Game:    'Game',
   Own:     'Personal',
   SPARCS:  'SPARCS',
   FreakIT: 'FreakIT',
@@ -226,6 +243,7 @@ type FilterId = ProjectCategory | 'All' | 'Stars';
 const categories: { id: FilterId; label: string; icon: JSX.Element }[] = [
   { id: 'Stars',   label: 'Featured',          icon: <Star size={13} /> },
   { id: 'AEL',     label: 'AI Experience Lab',  icon: <Cpu size={13} /> },
+  { id: 'Game',    label: 'Game',               icon: <Gamepad2 size={13} /> },
   { id: 'SPARCS',  label: 'SPARCS',             icon: <Zap size={13} /> },
   { id: 'FreakIT', label: 'FreakIT',            icon: <Users size={13} /> },
   { id: 'Own',     label: 'Personal',           icon: <Briefcase size={13} /> },
@@ -285,34 +303,48 @@ export const Projects = () => {
             animate="visible"
             exit="hidden"
           >
-            {filtered.map((proj, i) => (
-              <ProjectRow
-                key={proj.id}
-                href={proj.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                variants={rowVariants}
-              >
-                <RowIndex>{String(i + 1).padStart(2, '0')}</RowIndex>
+            {filtered.map((proj, i) => {
+              const rowBody = (
+                <>
+                  <RowIndex>{String(i + 1).padStart(2, '0')}</RowIndex>
 
-                <RowMain>
-                  <RowTop>
-                    <ProjectTitle className="proj-title">{proj.title}</ProjectTitle>
-                    <CategoryBadge>{catLabel[proj.category]}</CategoryBadge>
-                  </RowTop>
-                  <ProjectDesc>{proj.description}</ProjectDesc>
-                  {proj.tech && (
-                    <TechRow>
-                      {proj.tech.map((t) => <TechPill key={t}>{t}</TechPill>)}
-                    </TechRow>
+                  <RowMain>
+                    <RowTop>
+                      <ProjectTitle className="proj-title">{proj.title}</ProjectTitle>
+                      <CategoryBadge>{catLabel[proj.category]}</CategoryBadge>
+                    </RowTop>
+                    <ProjectDesc>{proj.description}</ProjectDesc>
+                    {proj.tech && (
+                      <TechRow>
+                        {proj.tech.map((t) => <TechPill key={t}>{t}</TechPill>)}
+                      </TechRow>
+                    )}
+                  </RowMain>
+
+                  {proj.link && (
+                    <RowArrow className="proj-arrow">
+                      <ArrowUpRight size={16} />
+                    </RowArrow>
                   )}
-                </RowMain>
+                </>
+              );
 
-                <RowArrow className="proj-arrow">
-                  <ArrowUpRight size={16} />
-                </RowArrow>
-              </ProjectRow>
-            ))}
+              return proj.link ? (
+                <ProjectRow
+                  key={proj.id}
+                  href={proj.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  variants={rowVariants}
+                >
+                  {rowBody}
+                </ProjectRow>
+              ) : (
+                <ProjectRowStatic key={proj.id} variants={rowVariants}>
+                  {rowBody}
+                </ProjectRowStatic>
+              );
+            })}
           </ProjectTable>
         </AnimatePresence>
       </Container>

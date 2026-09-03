@@ -1,11 +1,12 @@
-export type ProjectCategory = 'AEL' | 'Own' | 'FreakIT' | 'SPARCS';
+export type ProjectCategory = 'AEL' | 'Own' | 'Game' | 'FreakIT' | 'SPARCS';
 
 export interface Project {
   id: string;
   title: string;
   description: string;
   category: ProjectCategory;
-  link: string;
+  /** Omit when the deployment is retired — the row renders as plain text. */
+  link?: string;
   tech?: string[];
   featured?: boolean;
   star?: boolean;
@@ -13,14 +14,19 @@ export interface Project {
 }
 
 export const projects: Project[] = [
-  // AEL
-  { id: 'osler', title: 'Osler', description: 'Surgery Consent Support Agent (w. Asan Medical Center)', category: 'AEL', link: 'https://osler.siwon.it.kr', tech: ['AI', 'Healthcare', 'NLP'], featured: true, star: true, color: '#6366f1' },
-  { id: 'freud-jr', title: 'Freud-Jr', description: 'Psychiatry First-visit Support Platform (w. Yonsei Severance)', category: 'AEL', link: 'https://freud-jr.siwon.it.kr', tech: ['AI', 'Mental Health', 'UX'], featured: true, star: true, color: '#8b5cf6' },
-  { id: 'medicall', title: 'MediCall', description: 'AI Medical Tourism Platform (at. SWITCH SG)', category: 'AEL', link: 'https://medicall.siwon.it.kr', tech: ['AI', 'Tourism', 'Healthcare'], featured: true, color: '#06b6d4' },
-  { id: 'choreobot', title: 'ChoreoBot', description: 'Choreography Creation Support Chatbot', category: 'AEL', link: 'https://choreobot.siwon.it.kr', tech: ['AI', 'Dance', 'Generative'], color: '#ec4899' },
+  // AEL — deployments retired, links removed
+  { id: 'osler', title: 'Osler', description: 'Surgery Consent Support Agent (w. Asan Medical Center)', category: 'AEL', tech: ['AI', 'Healthcare', 'NLP'], featured: true, star: true, color: '#6366f1' },
+  { id: 'freud-jr', title: 'Freud-Jr', description: 'Psychiatry First-visit Support Platform (w. Yonsei Severance)', category: 'AEL', tech: ['AI', 'Mental Health', 'UX'], featured: true, star: true, color: '#8b5cf6' },
+  { id: 'carbon', title: 'Carbon', description: 'GHG Emissions (Scope 1·2·3) Extraction Pipeline & Benchmark from ESG Reports', category: 'AEL', tech: ['LLM', 'ESG', 'Document AI'], featured: true, star: true, color: '#059669' },
+  { id: 'medicall', title: 'MediCall', description: 'AI Medical Tourism Platform (at. SWITCH SG)', category: 'AEL', tech: ['AI', 'Tourism', 'Healthcare'], featured: true, color: '#06b6d4' },
+  { id: 'choreobot', title: 'ChoreoBot', description: 'Choreography Creation Support Chatbot', category: 'AEL', tech: ['AI', 'Dance', 'Generative'], color: '#ec4899' },
+
+  // Game
+  { id: 'pokemon-aegis', title: 'Pokemon Aegis', description: 'Tower Defense with all 1025 Pokémon — story, real-time PvP, and card auto-battler', category: 'Game', link: 'https://pokemon-td.freakit.co.kr', tech: ['React', 'TypeScript', 'Konva', 'Firebase'], featured: true, star: true, color: '#eab308' },
+  { id: 'radiant-platinum', title: 'Radiant Platinum', description: 'Pokémon Platinum rebuilt as a 3D game in the browser (BYOR, not an emulator)', category: 'Game', link: 'https://radiant.siwon.it.kr', tech: ['three.js', 'React', '@pkmn/sim', 'WebGL'], featured: true, star: true, color: '#a78bfa' },
+  { id: 'pokerhythm', title: 'Pokerhythm', description: 'Rhythm game charted from 557 real DS Pokémon SSEQ sequences, synthesized in-browser', category: 'Game', link: 'https://pokerhythm.siwon.it.kr', tech: ['Preact', 'Web Audio', 'Firestore'], featured: true, star: true, color: '#f472b6' },
 
   // Own
-  { id: 'pokemon-aegis', title: 'Pokemon Aegis', description: 'Pokemon Tower Defense', category: 'Own', link: 'https://pokemon-td.freakit.co.kr', tech: ['Game', 'React', 'TypeScript'], featured: true, star: true, color: '#eab308' },
   { id: 'stl', title: 'STL', description: 'AI-based Timetable Generator', category: 'Own', link: 'https://stl.siwon.it.kr', tech: ['AI', 'Optimization', 'KAIST'], featured: true, star: true, color: '#3b82f6' },
   { id: 'votex', title: 'VoteX', description: 'Online Secret Voting Platform', category: 'Own', link: 'https://votex.siwon.it.kr', tech: ['Security', 'Web3', 'Democracy'], color: '#22c55e' },
   { id: 'pawmo', title: 'Pawmo', description: 'KAIST Graduation Checker', category: 'Own', link: 'https://pawmo.siwon.it.kr', tech: ['KAIST', 'Graduation', 'Checker'], color: '#22c55e' },

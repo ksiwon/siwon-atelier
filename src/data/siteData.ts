@@ -11,7 +11,8 @@ export const roles = [
 export const aboutDescription =
   'Undergraduate researcher at KAIST (Industrial Design & CS double major), ' +
   'building AI-powered services at the intersection of HCI and design. ' +
-  'Focused on medical AI, generative AI service design, and voice interaction systems. ' +
+  'Focused on medical AI, document AI for sustainability reporting, and generative AI ' +
+  'service design — plus interaction-heavy browser games built from real game data. ' +
   'Affiliated with the AI Experience Lab.';
 
 export const contacts = {
