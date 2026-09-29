@@ -4,11 +4,9 @@ import { GlobalStyles } from './styles/GlobalStyles';
 import {
   Navbar,
   Hero,
-  About,
   Awards,
   Publications,
   Projects,
-  TechStack,
   Contact,
   Footer,
 } from './components';
@@ -20,11 +18,9 @@ function App() {
       <Navbar />
       <main>
         <Hero />
-        <About />
         <Awards />
         <Publications />
         <Projects />
-        <TechStack />
         <Contact />
       </main>
       <Footer />

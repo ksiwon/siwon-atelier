@@ -1,5 +1,5 @@
 // ─── Site-wide data ───────────────────────────────────────────────────────────
-// Edit this file to update bio, roles, contacts, and tech stack across the site.
+// Edit this file to update bio, roles, and contacts across the site.
 
 export const roles = [
   { title: '2024 KAIST CS Student Council President' },
@@ -19,11 +19,3 @@ export const contacts = {
   email1: 'pjo12346@kaist.ac.kr',
   email2: 'siwon@sparcs.org',
 };
-
-export const techStack = [
-  'React', 'TypeScript', 'Next.js', 'Python', 'FastAPI',
-  'TensorFlow', 'PyTorch', 'Figma', 'Node.js',
-  'MongoDB', 'AWS', 'Docker', 'Git',
-  'Javascript', 'Streamlit', 'MySQL', 'Render', 'Netlify',
-  'Blender',
-];

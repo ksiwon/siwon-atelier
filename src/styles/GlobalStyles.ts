@@ -14,19 +14,18 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   body {
-    font-family: ${({ theme }) => theme.fonts.body};
+    font-family: ${({ theme }) => theme.font};
+    font-size: ${({ theme }) => theme.type.body.size};
+    line-height: ${({ theme }) => theme.type.body.line};
+    font-variant-numeric: tabular-nums;
     background: ${({ theme }) => theme.colors.background};
     color: ${({ theme }) => theme.colors.text};
-    line-height: 1.6;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* No gradient mesh — flat solid background */
   }
 
   #root {
-    position: relative;
-    z-index: 1;
     min-height: 100vh;
   }
 
@@ -36,7 +35,8 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   button {
-    font-family: inherit;
+    font: inherit;
+    color: inherit;
     cursor: pointer;
     border: none;
     background: none;
@@ -48,9 +48,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: ${({ theme }) => theme.fonts.heading};
-    font-weight: 700;
-    line-height: 1.2;
+    font: inherit;
   }
 
   ::selection {
@@ -64,20 +62,11 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   ::-webkit-scrollbar-track {
-    background: ${({ theme }) => theme.colors.surface};
+    background: ${({ theme }) => theme.colors.background};
   }
 
   ::-webkit-scrollbar-thumb {
     background: ${({ theme }) => theme.colors.textDim};
     border-radius: 3px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: ${({ theme }) => theme.colors.textMuted};
-  }
-
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
   }
 `;

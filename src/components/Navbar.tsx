@@ -1,32 +1,24 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, Github, Mail } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
+import { typo } from '../styles/typography';
 
-/* ─── Nav shell ─── */
-const Nav = styled(motion.nav)<{ $scrolled: boolean }>`
+const Nav = styled.nav<{ $scrolled: boolean }>`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  width: 100%;
-  overflow-x: hidden;
   z-index: ${({ theme }) => theme.zIndex.nav};
-  padding-top: ${({ theme }) => theme.spacing.md};
-  padding-bottom: ${({ theme }) => theme.spacing.md};
-  padding-left: ${({ theme }) => theme.spacing.xl};
-  padding-right: ${({ theme }) => theme.spacing.xl};
-  transition: all ${({ theme }) => theme.transitions.normal};
+  padding: ${({ theme }) => theme.spacing.md} ${({ theme }) => theme.layout.sectionPadX};
+  background: ${({ $scrolled, theme }) => ($scrolled ? theme.colors.background : 'transparent')};
+  border-bottom: 1px solid ${({ $scrolled, theme }) => ($scrolled ? theme.colors.border : 'transparent')};
+  transition: background ${({ theme }) => theme.transitions.normal},
+    border-color ${({ theme }) => theme.transitions.normal};
 
   @media (max-width: 480px) {
-    padding-left: ${({ theme }) => theme.spacing.md};
-    padding-right: ${({ theme }) => theme.spacing.md};
+    padding-left: ${({ theme }) => theme.layout.sectionPadXSm};
+    padding-right: ${({ theme }) => theme.layout.sectionPadXSm};
   }
-  background: ${({ $scrolled, theme }) =>
-    $scrolled ? theme.colors.glass.background : 'transparent'};
-  backdrop-filter: ${({ $scrolled }) => ($scrolled ? 'blur(24px)' : 'none')};
-  border-bottom: 1px solid ${({ $scrolled, theme }) =>
-    $scrolled ? theme.colors.border : 'transparent'};
 `;
 
 const NavContainer = styled.div`
@@ -37,139 +29,77 @@ const NavContainer = styled.div`
   justify-content: space-between;
 `;
 
-/* ─── Logo ─── */
-const Logo = styled(motion.button)`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: ${({ theme }) => theme.fontSizes.lg};
-  font-weight: 800;
+const Logo = styled.button`
+  ${typo('heading')}
   color: ${({ theme }) => theme.colors.text};
-  letter-spacing: -0.02em;
   display: flex;
   align-items: center;
   gap: ${({ theme }) => theme.spacing.sm};
 `;
 
 const KaistBall = styled.img`
-  width: 26px;
-  height: 26px;
+  width: 22px;
+  height: 22px;
   object-fit: contain;
-  flex-shrink: 0;
 `;
 
-/* ─── Nav links ─── */
 const NavLinks = styled.div`
   display: flex;
-  align-items: center;
   gap: ${({ theme }) => theme.spacing.xl};
 
-  @media (max-width: 860px) {
+  @media (max-width: 768px) {
     display: none;
   }
 `;
 
-const NavLink = styled(motion.button)`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: ${({ theme }) => theme.fontSizes.sm};
-  font-weight: 500;
-  color: ${({ theme }) => theme.colors.textMuted};
+const NavLink = styled.button`
+  ${typo('small')}
+  color: ${({ theme }) => theme.colors.textDim};
   transition: color ${({ theme }) => theme.transitions.fast};
-  cursor: pointer;
-  position: relative;
-
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 1.5px;
-    background: ${({ theme }) => theme.colors.primary};
-    transition: width ${({ theme }) => theme.transitions.normal};
-  }
 
   &:hover {
     color: ${({ theme }) => theme.colors.text};
-    &::after { width: 100%; }
   }
 `;
 
-/* ─── Social icons ─── */
-const SocialLinks = styled.div`
-  display: flex;
-  align-items: center;
-  gap: ${({ theme }) => theme.spacing.sm};
-
-  @media (max-width: 860px) {
-    display: none;
-  }
-`;
-
-const SocialIcon = styled(motion.a)`
-  width: 34px;
-  height: 34px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: ${({ theme }) => theme.borderRadius.md};
-  color: ${({ theme }) => theme.colors.textMuted};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  transition: all ${({ theme }) => theme.transitions.fast};
-
-  &:hover {
-    color: ${({ theme }) => theme.colors.text};
-    border-color: ${({ theme }) => theme.colors.primary};
-    background: ${({ theme }) => theme.colors.surface};
-  }
-`;
-
-/* ─── Mobile ─── */
-const MobileMenuButton = styled(motion.button)`
+const MobileMenuButton = styled.button`
   display: none;
-  width: 40px;
-  height: 40px;
-  align-items: center;
-  justify-content: center;
-  color: ${({ theme }) => theme.colors.text};
+  color: ${({ theme }) => theme.colors.textMuted};
 
-  @media (max-width: 860px) {
+  @media (max-width: 768px) {
     display: flex;
   }
 `;
 
-const MobileMenu = styled(motion.div)`
+const MobileMenu = styled.div`
   position: fixed;
   inset: 0;
   background: ${({ theme }) => theme.colors.background};
-  z-index: ${({ theme }) => theme.zIndex.nav + 1};
+  z-index: ${({ theme }) => theme.zIndex.modal};
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  gap: ${({ theme }) => theme.spacing['2xl']};
+  gap: ${({ theme }) => theme.spacing.lg};
+  padding: 0 ${({ theme }) => theme.spacing.xl};
 `;
 
-const MobileNavLink = styled(motion.button)`
-  font-family: ${({ theme }) => theme.fonts.heading};
-  font-size: ${({ theme }) => theme.fontSizes['2xl']};
-  font-weight: 700;
+const MobileNavLink = styled.button`
+  ${typo('title')}
   color: ${({ theme }) => theme.colors.text};
-  cursor: pointer;
+  text-align: left;
 `;
 
-const CloseButton = styled(motion.button)`
+const CloseButton = styled.button`
   position: absolute;
-  top: ${({ theme }) => theme.spacing.xl};
-  right: ${({ theme }) => theme.spacing.xl};
-  color: ${({ theme }) => theme.colors.text};
+  top: ${({ theme }) => theme.spacing.md};
+  right: ${({ theme }) => theme.spacing.md};
+  color: ${({ theme }) => theme.colors.textMuted};
 `;
 
-/* ─── Nav items: About, Awards, Publications, Projects, Tech Stack, Contact ─── */
 const navItems = [
-  { label: 'About', href: '#about' },
   { label: 'Awards', href: '#awards' },
   { label: 'Publications', href: '#publications' },
   { label: 'Projects', href: '#projects' },
-  { label: 'Tech Stack', href: '#tech' },
   { label: 'Contact', href: '#contact' },
 ];
 
@@ -190,83 +120,39 @@ export const Navbar = () => {
 
   return (
     <>
-      <Nav
-        $scrolled={scrolled}
-        initial={{ y: -80 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-      >
+      <Nav $scrolled={scrolled}>
         <NavContainer>
-          <Logo
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-          >
+          <Logo onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
             <KaistBall src="/kaist-ball.png" alt="KAIST" />
             Siwon
           </Logo>
 
           <NavLinks>
             {navItems.map((item) => (
-              <NavLink
-                key={item.label}
-                onClick={() => scrollToSection(item.href)}
-                whileHover={{ y: -1 }}
-              >
+              <NavLink key={item.label} onClick={() => scrollToSection(item.href)}>
                 {item.label}
               </NavLink>
             ))}
           </NavLinks>
 
-          <SocialLinks>
-            <SocialIcon
-              href="https://github.com/ksiwon"
-              target="_blank"
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Github size={16} />
-            </SocialIcon>
-            <SocialIcon
-              href="mailto:pjo12346@kaist.ac.kr"
-              whileHover={{ scale: 1.08 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              <Mail size={16} />
-            </SocialIcon>
-          </SocialLinks>
-
-          <MobileMenuButton onClick={() => setMobileOpen(true)} whileTap={{ scale: 0.95 }}>
-            <Menu size={24} />
+          <MobileMenuButton onClick={() => setMobileOpen(true)} aria-label="Menu">
+            <Menu size={20} />
           </MobileMenuButton>
         </NavContainer>
       </Nav>
 
-      <AnimatePresence>
-        {mobileOpen && (
-          <MobileMenu
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-          >
-            <CloseButton onClick={() => setMobileOpen(false)}>
-              <X size={28} />
-            </CloseButton>
-            {navItems.map((item, i) => (
-              <MobileNavLink
-                key={item.label}
-                onClick={() => scrollToSection(item.href)}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.06 }}
-              >
-                {item.label}
-              </MobileNavLink>
-            ))}
-          </MobileMenu>
-        )}
-      </AnimatePresence>
+      {mobileOpen && (
+        <MobileMenu>
+          <CloseButton onClick={() => setMobileOpen(false)} aria-label="Close">
+            <X size={20} />
+          </CloseButton>
+          {navItems.map((item) => (
+            <MobileNavLink key={item.label} onClick={() => scrollToSection(item.href)}>
+              {item.label}
+            </MobileNavLink>
+          ))}
+        </MobileMenu>
+      )}
     </>
   );
 };
