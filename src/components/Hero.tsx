@@ -135,7 +135,7 @@ export const Hero = () => (
       <BioCol>
         <div>
           <HeroName>Jungwon Park</HeroName>
-          <HeroPosition>M.S. Student, Industrial Design, KAIST</HeroPosition>
+          <HeroPosition>Industrial Design &amp; School of Computing, KAIST</HeroPosition>
         </div>
 
         <BioParagraph>{aboutDescription}</BioParagraph>
