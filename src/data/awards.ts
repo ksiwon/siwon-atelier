@@ -27,7 +27,7 @@ export const awards: Award[] = [
       "STAT is an AI Agent system that closes the golden hour gap by transforming untrained bystanders into confident first responders. It analyzes the patient in real time and delivers step-by-step multimodal guidance, while simultaneously streaming live situation data to incoming paramedics, ensuring precise medical action from the moment of incident to professional handover.",
     tags: ['AI Agent', 'Emergency Response', 'Multimodal', 'UX/UI'],
     accentColor: '#ff2d2d',
-    image: '/stat.png',
+    image: '/stat.webp',
     link: 'https://www.red-dot.org/',
   },
   {
@@ -41,7 +41,7 @@ export const awards: Award[] = [
       "Conext connects individual investors to South Korea's startup ecosystem via the PIA system, delivered as a mobile app. An intuitive Sankey Diagram visualizes investment flows across GPs and startups at a glance, while a real-time risk management system and community features make startup investing smarter and more accessible. Built with NH Investment & Securities, designed at KAIST Industrial Design.",
     tags: ['Service Design', 'FinTech', 'UX/UI', 'NH Investment & Securities'],
     accentColor: '#e8c840',
-    image: '/conext.png',
+    image: '/conext.webp',
     link: 'https://ifdesign.com/en/winner-ranking/project/conext/742790',
   },
   {
