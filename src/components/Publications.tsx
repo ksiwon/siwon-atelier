@@ -86,7 +86,7 @@ const PaperLink = styled.a`
   }
 `;
 
-const SELF = 'JungWon Park';
+const SELF = 'Jungwon Park';
 
 const renderAuthors = (authors: string[]) =>
   authors.map((a, i) => (

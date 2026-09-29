@@ -8,7 +8,7 @@ export const roles = [
 ];
 
 export const aboutDescription =
-  'Designing and building AI services for education and medical.';
+  'Designing and building AI services for education and healthcare.';
 
 export const contacts = {
   email: 'pjo12346@kaist.ac.kr',

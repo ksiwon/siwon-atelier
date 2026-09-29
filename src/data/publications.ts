@@ -1,6 +1,6 @@
 // ─── Publications data ────────────────────────────────────────────────────────
 // Edit this file to add / update publications. Changes reflect automatically.
-// "JungWon Park" in the authors array will be bolded.
+// "Jungwon Park" in the authors array will be bolded.
 
 export type PublicationType = 'conference' | 'journal' | 'workshop' | 'preprint' | 'report';
 
@@ -32,7 +32,7 @@ export const publications: Publication[] = [
     id: 'medial-urp-2026',
     title:
       'MEDial: A Study on Active Conversational AI for Remote Medical Interviewing of the Elderly',
-    authors: ['JungWon Park'],
+    authors: ['Jungwon Park'],
     advisors: [
       'Tak Yeon Lee, Ph.D. (Professor, Dept. of Industrial Design, KAIST)',
     ],
@@ -56,7 +56,7 @@ export const publications: Publication[] = [
   {
     id: 'nonlinear-optical-2020',
     title: 'Study of Nonlinear Optical Lenz',
-    authors: ['JungWon Park', 'Unbi Ryu', 'Wonyup Lee'],
+    authors: ['Jungwon Park', 'Unbi Ryu', 'Wonyup Lee'],
     advisors: [
       'Gwangseok Kim, Ph.D. (Professor, Dept. of Optical Engineering, Pusan National University)',
     ],

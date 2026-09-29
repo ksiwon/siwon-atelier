@@ -59,7 +59,7 @@ export const Contact = () => (
         <Row>
           <Label>LinkedIn</Label>
           <Values>
-            <a href="https://www.linkedin.com/in/jung-won-park-954487376/" target="_blank" rel="noopener noreferrer">JungWon Park</a>
+            <a href="https://www.linkedin.com/in/jung-won-park-954487376/" target="_blank" rel="noopener noreferrer">Jungwon Park</a>
           </Values>
         </Row>
       </List>

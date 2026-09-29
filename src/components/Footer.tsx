@@ -19,6 +19,6 @@ const FooterContent = styled.p`
 
 export const Footer = () => (
   <FooterContainer>
-    <FooterContent>© {new Date().getFullYear()} JungWon Park</FooterContent>
+    <FooterContent>© {new Date().getFullYear()} Jungwon Park</FooterContent>
   </FooterContainer>
 );

@@ -126,7 +126,7 @@ export const Hero = () => (
   <HeroSection id="hero">
     <HeroInner>
       <PhotoCol>
-        <ProfileImage src="/jw_startup.png" alt="JungWon Park" />
+        <ProfileImage src="/jw_startup.png" alt="Jungwon Park" />
         <Box>KAIST, 2022–</Box>
         <QuickLinks>
           <QuickLink href="https://github.com/ksiwon" target="_blank" rel="noopener noreferrer">
@@ -140,7 +140,7 @@ export const Hero = () => (
 
       <BioCol>
         <div>
-          <HeroName>JungWon Park</HeroName>
+          <HeroName>Jungwon Park</HeroName>
           <HeroPosition>M.S. Student, Industrial Design, KAIST</HeroPosition>
         </div>
 

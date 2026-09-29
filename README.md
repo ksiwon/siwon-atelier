@@ -1,6 +1,6 @@
 # Siwon's Atelier
 
-Personal academic portfolio of JungWon Park — KAIST, Industrial Design & CS.
+Personal academic portfolio of Jungwon Park — KAIST, Industrial Design & CS.
 
 ## Stack
 
