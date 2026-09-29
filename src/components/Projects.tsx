@@ -86,9 +86,9 @@ const filters: { id: FilterId; label: string }[] = [
   { id: 'Stars',   label: 'Selected' },
   { id: 'AEL',     label: 'AI Experience Lab' },
   { id: 'Game',    label: 'Game' },
-  { id: 'SPARCS',  label: 'SPARCS' },
-  { id: 'FreakIT', label: 'FreakIT' },
   { id: 'Own',     label: 'Personal' },
+  { id: 'FreakIT', label: 'FreakIT' },
+  { id: 'SPARCS',  label: 'SPARCS' },
   { id: 'All',     label: 'All' },
 ];
 

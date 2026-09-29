@@ -98,7 +98,7 @@ const CloseButton = styled.button`
 
 const navItems = [
   { label: 'Awards', href: '#awards' },
-  { label: 'Publications', href: '#publications' },
+  { label: 'Research', href: '#research' },
   { label: 'Projects', href: '#projects' },
   { label: 'Contact', href: '#contact' },
 ];

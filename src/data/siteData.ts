@@ -5,17 +5,11 @@ export const roles = [
   { title: '2024 KAIST CS Student Council President' },
   { title: '2026 KAIST ID Student Council Vice President' },
   { title: 'CTO, FreakIT (AI Education Startup)' },
-  { title: 'SPARCS Frontend Developer & Designer' },
 ];
 
 export const aboutDescription =
-  'Undergraduate researcher at KAIST (Industrial Design & CS double major), ' +
-  'building AI-powered services at the intersection of HCI and design. ' +
-  'Focused on medical AI, document AI for sustainability reporting, and generative AI ' +
-  'service design — plus interaction-heavy browser games built from real game data. ' +
-  'Affiliated with the AI Experience Lab.';
+  'Designing and building AI services for education and medical.';
 
 export const contacts = {
-  email1: 'pjo12346@kaist.ac.kr',
-  email2: 'siwon@sparcs.org',
+  email: 'pjo12346@kaist.ac.kr',
 };

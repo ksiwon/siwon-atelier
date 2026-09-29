@@ -47,28 +47,19 @@ export const Contact = () => (
         <Row>
           <Label>Email</Label>
           <Values>
-            <a href={`mailto:${contacts.email1}`}>{contacts.email1}</a>
-            <a href={`mailto:${contacts.email2}`}>{contacts.email2}</a>
+            <a href={`mailto:${contacts.email}`}>{contacts.email}</a>
           </Values>
         </Row>
         <Row>
-          <Label>Elsewhere</Label>
+          <Label>GitHub</Label>
           <Values>
-            <a href="https://github.com/ksiwon" target="_blank" rel="noopener noreferrer">GitHub</a>
-            <a href="https://www.linkedin.com/in/jung-won-park-954487376/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://github.com/ksiwon" target="_blank" rel="noopener noreferrer">ksiwon</a>
           </Values>
         </Row>
         <Row>
-          <Label>Affiliation</Label>
+          <Label>LinkedIn</Label>
           <Values>
-            <span>KAIST — Industrial Design / School of Computing</span>
-            <span>AI Experience Lab</span>
-          </Values>
-        </Row>
-        <Row>
-          <Label>Location</Label>
-          <Values>
-            <span>N25, 291 Daehak-ro, Yuseong-gu, Daejeon 34141, Korea</span>
+            <a href="https://www.linkedin.com/in/jung-won-park-954487376/" target="_blank" rel="noopener noreferrer">JungWon Park</a>
           </Values>
         </Row>
       </List>

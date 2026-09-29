@@ -127,12 +127,12 @@ export const Hero = () => (
     <HeroInner>
       <PhotoCol>
         <ProfileImage src="/jw_startup.png" alt="JungWon Park" />
-        <Box>KAIST · Class of 2022</Box>
+        <Box>KAIST, 2022–</Box>
         <QuickLinks>
           <QuickLink href="https://github.com/ksiwon" target="_blank" rel="noopener noreferrer">
             <Github size={12} /> GitHub
           </QuickLink>
-          <QuickLink href={`mailto:${contacts.email1}`}>
+          <QuickLink href={`mailto:${contacts.email}`}>
             <Mail size={12} /> Email
           </QuickLink>
         </QuickLinks>
@@ -141,7 +141,7 @@ export const Hero = () => (
       <BioCol>
         <div>
           <HeroName>JungWon Park</HeroName>
-          <HeroPosition>Industrial Design & Computer Science, KAIST</HeroPosition>
+          <HeroPosition>M.S. Student, Industrial Design, KAIST</HeroPosition>
         </div>
 
         <BioParagraph>{aboutDescription}</BioParagraph>

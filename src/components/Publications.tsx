@@ -162,9 +162,9 @@ export const Publications = () => {
   ];
 
   return (
-    <Section id="publications">
+    <Section id="research">
       <Container>
-        <SectionTitle>Publications</SectionTitle>
+        <SectionTitle>Research</SectionTitle>
 
         <List>
           {sorted.map((pub) => (
