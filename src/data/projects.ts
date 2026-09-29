@@ -17,7 +17,7 @@ export const projects: Project[] = [
   // AEL — deployments retired, links removed
   { id: 'osler', title: 'Osler', description: 'Surgical consent agent, with Asan Medical Center', category: 'AEL', tech: ['AI', 'Healthcare', 'NLP'], featured: true, star: true, color: '#6366f1' },
   { id: 'freud-jr', title: 'Freud-Jr', description: 'Psychiatric first-visit platform, with Yonsei Severance', category: 'AEL', tech: ['AI', 'Mental Health', 'UX'], featured: true, color: '#8b5cf6' },
-  { id: 'carbon', title: 'Carbon', description: 'Scope 1·2·3 emissions extraction and benchmark from ESG reports', category: 'AEL', tech: ['LLM', 'ESG', 'Document AI'], featured: true, color: '#059669' },
+  { id: 'carbon', title: 'Carbon', description: 'Scope 1·2·3 emissions extraction and benchmark from ESG reports', category: 'AEL', tech: ['LLM', 'ESG'], featured: true, color: '#059669' },
   { id: 'medicall', title: 'MediCall', description: 'AI medical tourism platform, at SWITCH SG', category: 'AEL', tech: ['AI', 'Tourism', 'Healthcare'], featured: true, color: '#06b6d4' },
   { id: 'choreobot', title: 'ChoreoBot', description: 'Chatbot for choreography creation', category: 'AEL', tech: ['AI', 'Dance', 'Generative'], color: '#ec4899' },
 
