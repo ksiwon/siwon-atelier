@@ -104,13 +104,7 @@ const Interests = styled.p`
 
 const RolesGrid = styled.ul`
   list-style: none;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  column-gap: ${({ theme }) => theme.spacing.xl};
-
-  @media (max-width: 480px) {
-    grid-template-columns: 1fr;
-  }
+  max-width: 560px;
 `;
 
 const Role = styled.li`
@@ -120,7 +114,7 @@ const Role = styled.li`
   border-top: 1px solid ${({ theme }) => theme.colors.border};
 `;
 
-const researchInterests = ['HCI', 'AI Design', 'Voice Interaction', 'Generative AI', 'Medical AI', 'Document AI', 'Game Development', 'UX Research'];
+const researchInterests = ['HCI', 'AI Design', 'Voice Interaction', 'Generative AI', 'Medical AI', 'Game Development', 'UX Research'];
 
 export const Hero = () => (
   <HeroSection id="hero">

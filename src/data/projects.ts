@@ -16,8 +16,8 @@ export interface Project {
 export const projects: Project[] = [
   // AEL — deployments retired, links removed
   { id: 'osler', title: 'Osler', description: 'Surgical consent agent, with Asan Medical Center', category: 'AEL', tech: ['AI', 'Healthcare', 'NLP'], featured: true, star: true, color: '#6366f1' },
-  { id: 'freud-jr', title: 'Freud-Jr', description: 'Psychiatric first-visit platform, with Yonsei Severance', category: 'AEL', tech: ['AI', 'Mental Health', 'UX'], featured: true, star: true, color: '#8b5cf6' },
-  { id: 'carbon', title: 'Carbon', description: 'Scope 1·2·3 emissions extraction and benchmark from ESG reports', category: 'AEL', tech: ['LLM', 'ESG', 'Document AI'], featured: true, star: true, color: '#059669' },
+  { id: 'freud-jr', title: 'Freud-Jr', description: 'Psychiatric first-visit platform, with Yonsei Severance', category: 'AEL', tech: ['AI', 'Mental Health', 'UX'], featured: true, color: '#8b5cf6' },
+  { id: 'carbon', title: 'Carbon', description: 'Scope 1·2·3 emissions extraction and benchmark from ESG reports', category: 'AEL', tech: ['LLM', 'ESG', 'Document AI'], featured: true, color: '#059669' },
   { id: 'medicall', title: 'MediCall', description: 'AI medical tourism platform, at SWITCH SG', category: 'AEL', tech: ['AI', 'Tourism', 'Healthcare'], featured: true, color: '#06b6d4' },
   { id: 'choreobot', title: 'ChoreoBot', description: 'Chatbot for choreography creation', category: 'AEL', tech: ['AI', 'Dance', 'Generative'], color: '#ec4899' },
 
@@ -27,7 +27,7 @@ export const projects: Project[] = [
   { id: 'pokerhythm', title: 'Pokerhythm', description: 'Rhythm game from 557 DS Pokémon sequences', category: 'Game', link: 'https://pokerhythm.siwon.it.kr', tech: ['Preact', 'Web Audio', 'Firestore'], featured: true, star: true, color: '#f472b6' },
 
   // Own
-  { id: 'stl', title: 'STL', description: 'AI timetable generator', category: 'Own', link: 'https://stl.siwon.it.kr', tech: ['AI', 'Optimization', 'KAIST'], featured: true, star: true, color: '#3b82f6' },
+  { id: 'stl', title: 'STL', description: 'AI timetable generator', category: 'Own', link: 'https://stl.siwon.it.kr', tech: ['AI', 'Optimization', 'KAIST'], featured: true, color: '#3b82f6' },
   { id: 'votex', title: 'VoteX', description: 'Secret online voting', category: 'Own', link: 'https://votex.siwon.it.kr', tech: ['Security', 'Web3', 'Democracy'], color: '#22c55e' },
   { id: 'pawmo', title: 'Pawmo', description: 'KAIST graduation checker', category: 'Own', link: 'https://pawmo.siwon.it.kr', tech: ['KAIST', 'Graduation', 'Checker'], color: '#22c55e' },
   { id: 'missvoice', title: 'MissVoice', description: 'Voice generation from recordings', category: 'Own', link: 'https://missvoice.siwon.it.kr', tech: ['AI', 'Voice', 'TTS'], color: '#f43f5e' },
