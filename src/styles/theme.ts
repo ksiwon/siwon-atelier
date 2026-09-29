@@ -46,7 +46,7 @@ export const theme = {
   },
 
   layout: {
-    maxWidth:      '960px',
+    maxWidth:      '1080px',
     sectionPadX:   '2rem',
     sectionPadXSm: '1rem',          // mobile ≤ 480px
     sectionPadY:   '6rem',
