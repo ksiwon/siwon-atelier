@@ -74,7 +74,6 @@ const Category = styled.span`
 
 const catLabel: Record<ProjectCategory, string> = {
   AEL:     'AI Experience Lab',
-  Game:    'Game',
   Own:     'Personal',
   SPARCS:  'SPARCS',
   FreakIT: 'FreakIT',
@@ -85,7 +84,6 @@ type FilterId = ProjectCategory | 'All' | 'Stars';
 const filters: { id: FilterId; label: string }[] = [
   { id: 'Stars',   label: 'Selected' },
   { id: 'AEL',     label: 'AI Experience Lab' },
-  { id: 'Game',    label: 'Game' },
   { id: 'Own',     label: 'Personal' },
   { id: 'FreakIT', label: 'FreakIT' },
   { id: 'SPARCS',  label: 'SPARCS' },

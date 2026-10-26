@@ -1,4 +1,4 @@
-export type ProjectCategory = 'AEL' | 'Own' | 'Game' | 'FreakIT' | 'SPARCS';
+export type ProjectCategory = 'AEL' | 'Own' | 'FreakIT' | 'SPARCS';
 
 export interface Project {
   id: string;
@@ -20,11 +20,6 @@ export const projects: Project[] = [
   { id: 'carbon', title: 'Carbon', description: 'Scope 1·2·3 emissions extraction and benchmark from ESG reports', category: 'AEL', tech: ['LLM', 'ESG'], featured: true, color: '#059669' },
   { id: 'medicall', title: 'MediCall', description: 'AI medical tourism platform, at SWITCH SG', category: 'AEL', tech: ['AI', 'Tourism', 'Healthcare'], featured: true, color: '#06b6d4' },
   { id: 'choreobot', title: 'ChoreoBot', description: 'Chatbot for choreography creation', category: 'AEL', tech: ['AI', 'Dance', 'Generative'], color: '#ec4899' },
-
-  // Game
-  { id: 'pokemon-aegis', title: 'Pokemon Aegis', description: 'Tower defense with all 1025 Pokémon', category: 'Game', link: 'https://aegis.siwon.it.kr', tech: ['React', 'TypeScript', 'Konva', 'Firebase'], featured: true, star: true, color: '#eab308' },
-  { id: 'radiant-platinum', title: 'Radiant Platinum', description: 'Pokémon Platinum, rebuilt in 3D for the browser', category: 'Game', link: 'https://radiant.siwon.it.kr', tech: ['three.js', 'React', '@pkmn/sim', 'WebGL'], featured: true, star: true, color: '#a78bfa' },
-  { id: 'pokerhythm', title: 'Pokerhythm', description: 'Rhythm game from 557 DS Pokémon sequences', category: 'Game', link: 'https://pokerhythm.siwon.it.kr', tech: ['Preact', 'Web Audio', 'Firestore'], featured: true, star: true, color: '#f472b6' },
 
   // Own
   { id: 'stl', title: 'STL', description: 'AI timetable generator', category: 'Own', link: 'https://stl.siwon.it.kr', tech: ['AI', 'Optimization', 'KAIST'], featured: true, color: '#3b82f6' },

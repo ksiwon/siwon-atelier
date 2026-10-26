@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Menu, X } from 'lucide-react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { typo } from '../styles/typography';
 
 const Nav = styled.nav<{ $scrolled: boolean }>`
@@ -52,9 +53,9 @@ const NavLinks = styled.div`
   }
 `;
 
-const NavLink = styled.button`
+const NavLink = styled.button<{ $active?: boolean }>`
   ${typo('small')}
-  color: ${({ theme }) => theme.colors.textDim};
+  color: ${({ $active, theme }) => ($active ? theme.colors.text : theme.colors.textDim)};
   transition: color ${({ theme }) => theme.transitions.fast};
 
   &:hover {
@@ -96,16 +97,20 @@ const CloseButton = styled.button`
   color: ${({ theme }) => theme.colors.textMuted};
 `;
 
+/* `/#id` scrolls to a section on the home page; `/games` is its own route. */
 const navItems = [
-  { label: 'Awards', href: '#awards' },
-  { label: 'Research', href: '#research' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Awards', to: '/#awards' },
+  { label: 'Research', to: '/#research' },
+  { label: 'Projects', to: '/#projects' },
+  { label: 'Games', to: '/games' },
+  { label: 'Contact', to: '/#contact' },
 ];
 
 export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -113,23 +118,32 @@ export const Navbar = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToSection = (href: string) => {
+  const goTo = (to: string) => {
     setMobileOpen(false);
-    document.querySelector(href)?.scrollIntoView({ behavior: 'smooth' });
+    if (pathname === '/' && to.startsWith('/#')) {
+      document.querySelector(to.slice(1))?.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate(to);
+    }
+  };
+
+  const goHome = () => {
+    if (pathname === '/') window.scrollTo({ top: 0, behavior: 'smooth' });
+    else navigate('/');
   };
 
   return (
     <>
       <Nav $scrolled={scrolled}>
         <NavContainer>
-          <Logo onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+          <Logo onClick={goHome}>
             <KaistBall src="/kaist-ball.png" alt="KAIST" />
             Siwon
           </Logo>
 
           <NavLinks>
             {navItems.map((item) => (
-              <NavLink key={item.label} onClick={() => scrollToSection(item.href)}>
+              <NavLink key={item.label} $active={item.to === pathname} onClick={() => goTo(item.to)}>
                 {item.label}
               </NavLink>
             ))}
@@ -147,7 +161,7 @@ export const Navbar = () => {
             <X size={20} />
           </CloseButton>
           {navItems.map((item) => (
-            <MobileNavLink key={item.label} onClick={() => scrollToSection(item.href)}>
+            <MobileNavLink key={item.label} onClick={() => goTo(item.to)}>
               {item.label}
             </MobileNavLink>
           ))}
