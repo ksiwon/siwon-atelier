@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { games } from '../data/games';
 import { typo } from '../styles/typography';
 import { Section, Container, SectionTitle, List } from './Section';
+import { Gallery } from './Gallery';
 
 const Intro = styled.p`
   ${typo('small')}
@@ -21,43 +22,19 @@ const Entry = styled.article<{ $flip: boolean }>`
   padding: ${({ theme }) => theme.spacing['2xl']} 0;
   border-bottom: 1px solid ${({ theme }) => theme.colors.border};
 
-  &:hover h2 {
-    color: ${({ theme }) => theme.colors.primary};
-  }
-
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     gap: ${({ theme }) => theme.spacing.lg};
   }
 `;
 
-const ScreenLink = styled.a<{ $flip: boolean }>`
-  display: block;
+const GalleryCol = styled.div<{ $flip: boolean }>`
+  min-width: 0;
   order: ${({ $flip }) => ($flip ? 2 : 1)};
 
   @media (max-width: 768px) {
     order: 1;
   }
-`;
-
-const Screen = styled.div<{ $background?: string }>`
-  aspect-ratio: 16 / 10;
-  overflow: hidden;
-  background: ${({ $background, theme }) => $background ?? theme.colors.surface};
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  transition: border-color ${({ theme }) => theme.transitions.fast};
-
-  ${ScreenLink}:hover & {
-    border-color: ${({ theme }) => theme.colors.borderHover};
-  }
-`;
-
-const ScreenImage = styled.img<{ $position?: string; $contain?: boolean }>`
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: ${({ $contain }) => ($contain ? 'contain' : 'cover')};
-  object-position: ${({ $position }) => $position ?? 'center'};
 `;
 
 const Info = styled.div<{ $flip: boolean }>`
@@ -84,7 +61,14 @@ const Status = styled.span`
 const GameTitle = styled.h2`
   ${typo('title')}
   color: ${({ theme }) => theme.colors.text};
-  transition: color ${({ theme }) => theme.transitions.fast};
+
+  a {
+    transition: color ${({ theme }) => theme.transitions.fast};
+  }
+
+  a:hover {
+    color: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 const Tagline = styled.p`
@@ -155,31 +139,18 @@ export const Games = () => (
           const flip = games.indexOf(game) % 2 === 1;
           return (
             <Entry key={game.id} $flip={flip}>
-              <ScreenLink
-                $flip={flip}
-                href={game.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                tabIndex={-1}
-                aria-hidden="true"
-              >
-                <Screen $background={game.art.contain?.background}>
-                  <ScreenImage
-                    src={game.art.src}
-                    alt={`${game.title} screenshot`}
-                    loading="lazy"
-                    $position={game.art.position}
-                    $contain={!!game.art.contain}
-                  />
-                </Screen>
-              </ScreenLink>
+              <GalleryCol $flip={flip}>
+                <Gallery slides={game.slides} title={game.title} />
+              </GalleryCol>
 
               <Info $flip={flip}>
                 <Meta>
                   {game.genre}
                   {game.status && <> · <Status>{game.status}</Status></>}
                 </Meta>
-                <GameTitle>{game.title}</GameTitle>
+                <GameTitle>
+                  <a href={game.link} target="_blank" rel="noopener noreferrer">{game.title}</a>
+                </GameTitle>
                 <Tagline>{game.tagline}</Tagline>
                 <Desc>{game.description}</Desc>
 
