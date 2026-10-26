@@ -7,6 +7,7 @@ import { Gallery } from './Gallery';
 
 const Intro = styled.p`
   ${typo('small')}
+  word-break: keep-all;
   max-width: 560px;
   margin-top: calc(-1 * ${({ theme }) => theme.spacing.md});
   margin-bottom: ${({ theme }) => theme.spacing['2xl']};
@@ -73,35 +74,19 @@ const GameTitle = styled.h2`
 
 const Tagline = styled.p`
   ${typo('body')}
+  word-break: keep-all;
   color: ${({ theme }) => theme.colors.text};
 `;
 
 const Desc = styled.p`
   ${typo('small')}
+  word-break: keep-all;
   color: ${({ theme }) => theme.colors.textMuted};
-`;
-
-const Facts = styled.dl`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: ${({ theme }) => theme.spacing.md};
-  margin-top: ${({ theme }) => theme.spacing.sm};
-  padding-top: ${({ theme }) => theme.spacing.md};
-  border-top: 1px solid ${({ theme }) => theme.colors.border};
-`;
-
-const FactValue = styled.dt`
-  ${typo('heading')}
-  color: ${({ theme }) => theme.colors.text};
-`;
-
-const FactLabel = styled.dd`
-  ${typo('caption')}
-  color: ${({ theme }) => theme.colors.textDim};
 `;
 
 const Note = styled.p`
   ${typo('caption')}
+  word-break: keep-all;
   color: ${({ theme }) => theme.colors.textDim};
 `;
 
@@ -122,6 +107,7 @@ const PlayLink = styled.a`
 
 const Footnote = styled.p`
   ${typo('caption')}
+  word-break: keep-all;
   margin-top: ${({ theme }) => theme.spacing.lg};
   color: ${({ theme }) => theme.colors.textDim};
 `;
@@ -131,7 +117,7 @@ export const Games = () => (
     <Container>
       <SectionTitle as="h1">Games</SectionTitle>
       <Intro>
-        Browser games built from real game data — playable right in the browser, no install.
+        직접 만든 포켓몬 팬 게임들입니다. 모두 브라우저에서 바로 플레이할 수 있습니다.
       </Intro>
 
       <List>
@@ -154,21 +140,10 @@ export const Games = () => (
                 <Tagline>{game.tagline}</Tagline>
                 <Desc>{game.description}</Desc>
 
-                <Facts>
-                  {game.facts.map((f) => (
-                    <div key={f.label}>
-                      <FactValue>{f.value}</FactValue>
-                      <FactLabel>{f.label}</FactLabel>
-                    </div>
-                  ))}
-                </Facts>
-
-                {game.modes && <Note>{game.modes.join(' · ')}</Note>}
-                <Note>{game.tech.join(' · ')}</Note>
                 {game.note && <Note>{game.note}</Note>}
 
                 <PlayLink href={game.link} target="_blank" rel="noopener noreferrer">
-                  Play <ArrowUpRight size={14} />
+                  플레이하기 <ArrowUpRight size={14} />
                 </PlayLink>
               </Info>
             </Entry>
@@ -177,8 +152,8 @@ export const Games = () => (
       </List>
 
       <Footnote>
-        Unofficial, non-commercial fan projects. Pokémon is a trademark of Nintendo, Creatures Inc.
-        and GAME FREAK inc.; these projects are not affiliated with or endorsed by them.
+        비공식·비영리 팬 프로젝트입니다. Pokémon은 Nintendo, Creatures Inc., GAME FREAK inc.의 상표이며,
+        이 게임들은 해당 회사들과 제휴하거나 후원받지 않았습니다.
       </Footnote>
     </Container>
   </Section>

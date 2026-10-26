@@ -1,8 +1,3 @@
-export interface GameFact {
-  value: string;
-  label: string;
-}
-
 export interface Slide {
   /** Full-size image, loaded only when the slide is shown. */
   src: string;
@@ -15,20 +10,17 @@ export interface Slide {
 export interface Game {
   id: string;
   title: string;
+  /** One line: what kind of game this is. */
   tagline: string;
+  /** A short paragraph for someone who has never heard of the game. */
   description: string;
   genre: string;
   /** Screenshots, in display order — the first one is shown initially. */
   slides: Slide[];
-  /** Three headline numbers shown under the description. */
-  facts: GameFact[];
-  /** Ways to play — rendered as a single mono line. */
-  modes?: string[];
-  tech: string[];
   link: string;
-  /** Shown as a small badge next to the genre, e.g. while a game is not finished. */
+  /** Shown next to the genre while a game is not finished. */
   status?: string;
-  /** Extra one-liner under the facts (e.g. bring-your-own-ROM notice). */
+  /** Something a player needs to know before starting. */
   note?: string;
 }
 
@@ -43,94 +35,63 @@ const slides = (dir: string, count: number, contain: Record<number, string> = {}
     };
   });
 
-const BYOR = 'Bring your own ROM — game data is converted in your own browser, never uploaded.';
+const ROM_NOTE =
+  '플레이하려면 원작 게임 파일(롬)이 필요합니다. 내 브라우저 안에서만 쓰이며 어디에도 업로드되지 않습니다.';
 
 export const games: Game[] = [
   {
     id: 'radiant-platinum',
     title: 'Radiant Platinum',
-    tagline: 'Pokémon Platinum, rebuilt as a 3D game in the browser.',
+    tagline: '포켓몬스터 플래티넘을 3D로 다시 모험합니다.',
     description:
-      'Not an emulator — maps, collision and rules are read from the original data and rebuilt on three.js, with the two DS screens folded into one. Battles are computed by @pkmn/sim.',
-    genre: '3D RPG remake',
+      '닌텐도 DS 시절의 신오지방을 입체적인 세계에서 처음부터 다시 걸어 볼 수 있습니다. 이야기와 배틀은 원작 그대로이며, 두 화면으로 나뉘어 있던 조작은 한 화면에 모아 브라우저에서 편하게 즐길 수 있게 만들었습니다.',
+    genre: '3D 리메이크 RPG',
     slides: slides('radiant-platinum', 6),
-    facts: [
-      { value: '6.3 MB', label: 'Served' },
-      { value: '768 MB', label: 'Built in your browser' },
-      { value: 'Gen 4', label: 'Platinum' },
-    ],
-    tech: ['three.js', 'React', '@pkmn/sim', 'WebGL'],
     link: 'https://radiant.siwon.it.kr',
-    note: BYOR,
+    note: ROM_NOTE,
   },
   {
     id: 'cosmic-gold',
     title: 'Cosmic Gold',
-    tagline: 'HeartGold, walked again in free-roaming 3D — and continued past the ending.',
+    tagline: '하트골드를 자유롭게 걸어 다니고, 엔딩 그 이후의 이야기까지.',
     description:
-      'Event scripts run on the original VM, battles are ported line by line from the decompilation, and a new story picks up where the original ends. Move freely, in first or third person.',
-    genre: '3D RPG remake',
+      '성도지방을 3D로 옮겨, 1인칭과 3인칭을 오가며 어디든 자유롭게 돌아다닐 수 있습니다. 원작의 마을과 체육관, 사천왕까지 처음부터 끝까지 다시 모험하고, 챔피언이 된 뒤에는 원작에 없던 새로운 이야기가 이어집니다.',
+    genre: '3D 리메이크 RPG',
     slides: slides('cosmic-gold', 6),
-    facts: [
-      { value: '540', label: 'Maps in 3D' },
-      { value: '16', label: 'Gyms' },
-      { value: 'Gen 4', label: 'HeartGold' },
-    ],
-    tech: ['three.js', 'TypeScript', 'WebGL', 'Vite'],
     link: 'https://cosmic.siwon.it.kr',
-    note: BYOR,
+    note: ROM_NOTE,
   },
   {
     id: 'pangea',
     title: 'Pangea',
-    tagline: 'Kanto, Johto, Hoenn and Sinnoh as one connected world.',
+    tagline: '관동·성도·호연·신오가 하나로 이어진 새로운 세계.',
     description:
-      'Four regions stitched together like a map of Japan, with an entirely new story to walk through. The successor to Radiant Platinum and Cosmic Gold.',
+      '네 지방이 일본 지도처럼 하나로 연결된 거대한 세계를 두 발로 여행하는 포켓몬 팬게임입니다. 완전히 새로운 이야기를 따라가며 모든 지방을 누빌 수 있습니다. Radiant Platinum과 Cosmic Gold의 후속작입니다.',
     genre: '3D RPG',
     // 1 title screen, 2 world map, 3–6 region maps (map only, no title)
     slides: slides('pangea', 6, { 2: '#62a5d3', 3: '#62a5d3', 4: '#60a6d3', 5: '#60a6d3', 6: '#60a6d3' }),
-    facts: [
-      { value: '4', label: 'Regions, one world' },
-      { value: 'Lv 200', label: 'Level cap' },
-      { value: '1,432', label: 'Rooms' },
-    ],
-    tech: ['three.js', 'React', 'TypeScript', 'WebGL'],
     link: 'https://pangea.siwon.it.kr',
-    status: 'In development',
-    note: BYOR,
+    status: '개발 중',
+    note: ROM_NOTE,
   },
   {
     id: 'pokemon-aegis',
     title: 'Pokemon Aegis',
-    tagline: 'Tower defense with all 1025 Pokémon.',
+    tagline: '모든 포켓몬이 등장하는 타워 디펜스.',
     description:
-      'A strategy tower defense where every Pokémon from Gen 1 to Gen 9 is playable — a single-player story, real-time PvP battles, and a card-collecting auto-battler.',
-    genre: 'Tower Defense',
+      '포켓몬을 길목에 배치해 몰려오는 적을 막아내는 전략 게임입니다. 혼자서 이야기를 따라가는 스토리 모드, 친구와 실시간으로 맞붙는 대전, 카드를 모아 자동으로 싸우는 오토 배틀까지 여러 방식으로 즐길 수 있습니다.',
+    genre: '타워 디펜스',
     slides: slides('pokemon-aegis', 5),
-    facts: [
-      { value: '1025', label: 'Pokémon' },
-      { value: '9', label: 'Generations' },
-      { value: '3', label: 'Ways to play' },
-    ],
-    modes: ['Story', 'Real-time PvP', 'Card auto-battler'],
-    tech: ['React', 'TypeScript', 'Konva', 'Firebase'],
     link: 'https://aegis.siwon.it.kr',
   },
   {
     id: 'pokerhythm',
     title: 'Pokerhythm',
-    tagline: 'A rhythm game charted from the real music data.',
+    tagline: '포켓몬 BGM을 직접 연주하듯 치는 리듬 게임.',
     description:
-      'DS Pokémon music is sequence data, not recordings — so the game ships notes and synthesizes the sound in the browser. Charts are generated on the fly, with a global leaderboard.',
-    genre: 'Rhythm',
+      '포켓몬 시리즈 속 익숙한 마을과 도로, 체육관의 음악이 그대로 악보가 됩니다. 원곡의 멜로디를 따라 키보드로 노트를 치다 보면 어느새 곡을 연주하고 있습니다. 곡마다 쉬움부터 극한까지 난이도가 있고, 다른 사람들과 순위도 겨룰 수 있습니다.',
+    genre: '리듬 게임',
     slides: slides('pokerhythm', 5),
-    facts: [
-      { value: '557', label: 'Songs' },
-      { value: '4', label: 'Difficulties per song' },
-      { value: '1–20', label: 'Chart levels' },
-    ],
-    modes: ['4-key', '6-key', 'Single-key (ADOFAI-style)'],
-    tech: ['Preact', 'Web Audio', 'Firestore'],
     link: 'https://pokerhythm.siwon.it.kr',
   },
 ];
