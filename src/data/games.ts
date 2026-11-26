@@ -94,4 +94,15 @@ export const games: Game[] = [
     slides: slides('pokerhythm', 5),
     link: 'https://pokerhythm.siwon.it.kr',
   },
+  {
+    id: 'pokekart',
+    title: 'PokeKart',
+    tagline: '내가 고른 포켓몬 파트너와 기술을 주고받으며 달리는 카트 레이스.',
+    description:
+      '알로라 지방을 배경으로 한 3D 카트 레이싱입니다. 좋아하는 포켓몬을 파트너로 골라 카트에 태우고, 달리는 중에 기술을 쏘고 도구를 써서 상대를 따돌립니다. 혼자서 봇과 겨루는 레이스와 그랑프리, 타임어택, 미션은 물론 친구들과 온라인으로 함께 달릴 수도 있습니다.',
+    genre: '3D 카트 레이싱',
+    // 1 title, 2 racing, 3 start grid, 4 course intro, 5 partner select, 6 mode select
+    slides: slides('pokekart', 6),
+    link: 'https://pokekart.siwon.it.kr',
+  },
 ];
